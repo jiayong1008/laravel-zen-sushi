@@ -1,8 +1,11 @@
-# User Authentication
-## _Laravel Breeze_
+## Installation
+1. `git clone "https://github.com/tanweikang02/SDP.git"`
+2. `git remote add origin "https://github.com/tanweikang02/SDP/main"`
+3. `git branch --set-upstream-to=origin/<branch>`
+4. `git pull`
 
-The tutorial being followed:
-https://dev.to/kingsconsult/how-to-setup-basic-laravel-app-with-login-and-registration-using-laravel-breeze-6o5
-
-Laravel Doc for user authentication:
-https://laravel.com/docs/8.x/authentication
+### Useful Git Commands
+- `git add`
+- `git commit`
+- `git push`
+- `git stash`
