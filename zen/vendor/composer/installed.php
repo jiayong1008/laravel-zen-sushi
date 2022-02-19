@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'aed345a5f5ae8de3c8d177ca619e9f7c072d1151',
+        'reference' => '2f52f3040b3033b3feea81f7cd0e9d9ce92e58eb',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -409,7 +409,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'aed345a5f5ae8de3c8d177ca619e9f7c072d1151',
+            'reference' => '2f52f3040b3033b3feea81f7cd0e9d9ce92e58eb',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -979,6 +979,15 @@
             'aliases' => array(),
             'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
             'dev_requirement' => true,
+        ),
+        'srmklive/paypal' => array(
+            'pretty_version' => '3.0.13',
+            'version' => '3.0.13.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../srmklive/paypal',
+            'aliases' => array(),
+            'reference' => '064208e94c9997e42668230c1019d7ff85f77794',
+            'dev_requirement' => false,
         ),
         'swiftmailer/swiftmailer' => array(
             'pretty_version' => 'v6.3.0',
