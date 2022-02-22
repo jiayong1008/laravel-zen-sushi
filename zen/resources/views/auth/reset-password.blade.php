@@ -7,12 +7,11 @@
 {{ 'light' }}@endsection
 
 @section('logoFileName')
-{{ 'White Logo.png' }}@endsection
+{{ '../images/Black Logo.png' }}@endsection
 
 
 @section('content')
 <section class="min-vh-100">
-    test
 <div class="container">
     <div class="row d-flex align-items-center justify-content-center min-vh-100">
         <div class="col-lg-6">

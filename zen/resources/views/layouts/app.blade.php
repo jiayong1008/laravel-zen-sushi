@@ -29,7 +29,7 @@
 <header>
         <nav data-theme="@yield('navTheme')" class="home-nav">
             <a href="/" class="logo-wrapper">
-                <img class="logo" src="./images/@yield('logoFileName')" alt="logo">
+                <img class="logo" src="@yield('logoFileName')" alt="logo">
                 <h3 class="logo-name">{{ config('app.name') }}</h3>
             </a>
             <ul class="nav-links">

@@ -11,7 +11,7 @@
 {{ 'dark' }}@endsection
 
 @section('logoFileName')
-{{ 'White Logo.png' }}@endsection
+{{ './images/White Logo.png' }}@endsection
 
 
 @section('content')
