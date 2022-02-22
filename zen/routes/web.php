@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PayPalController;
 
+require __DIR__.'/auth.php';
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,13 +17,8 @@ use App\Http\Controllers\PayPalController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 
 // PayPal
 Route::get('/create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
@@ -29,4 +26,11 @@ Route::get('/process-transaction', [PayPalController::class, 'processTransaction
 Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
 Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 
-require __DIR__.'/auth.php';
+// Cart
+Route::get('/cart/{user}', [CartController::class, 'index'])->name('cart');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
