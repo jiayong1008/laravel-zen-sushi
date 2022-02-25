@@ -16,7 +16,7 @@ class MenuFactory extends Factory
         return [
             'name' => rtrim($this->faker->sentence(2), '.'),
             'description' => rtrim($this->faker->sentence(5), '.'),
-            'price' => $this->faker->randomFloat(4, 1, 99),
+            'price' => round($this->faker->randomFloat(4, 1, 99), 2),
             'image' => $this->getImage(),
             'size' => $this->getSize(),
         ];

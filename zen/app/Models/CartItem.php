@@ -9,6 +9,8 @@ class CartItem extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'menu_id',
         'order_id',

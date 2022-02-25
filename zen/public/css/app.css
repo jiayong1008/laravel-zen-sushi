@@ -11435,10 +11435,9 @@ nav {
     z-index: 3;
 }
 
-#register .logo-name, .nav-links li a,
-#login .logo-name, .nav-links li a,
-#resetPass .logo-name, .nav-links li a {
+.light .logo-name, .light .nav-links li a {
     color: rgb(82, 82, 82);
+    text-shadow: none;
 }
 
 @media screen and (max-width: 768px) {

@@ -10,8 +10,8 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'complete',
-        'string',
+        'dateTime',
+        'type',
     ];
 
     public function user() {
