@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $item->menu->name }}</h5>
                         <div class="cart-detail d-flex my-3">
-                            <form action="{{ route('cart.update', $item) }}" method="post">
+                            <form action="{{ route('cartUpdate', $item) }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="cartAction" value="-">
@@ -37,14 +37,14 @@
                             </form>
                             <h6 class="card-subtitle text-muted d-flex align-items-center mx-3">RM {{ $item->menu->price }} x {{ $item->quantity }}</h6>
                             <h5 class="card-subtitle text-muted d-flex align-items-center mx-3">RM {{ $item->menu->price * $item->quantity }}</h5>
-                            <form action="{{ route('cart.update', $item) }}" method="post">
+                            <form action="{{ route('cartUpdate', $item) }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="cartAction" value="+">
                                 <button type="submit" class="btn btn-outline-secondary">+</button>
                             </form>                        
                         </div>
-                        <form action="{{ route('cart.destroy', $item) }}" method="post">
+                        <form action="{{ route('cartDestroy', $item) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="primary-btn">Delete</button>
@@ -64,7 +64,7 @@
                 <button type="submit" class="btn btn-primary">Apply</button>
             </form>
 
-            <form action="{{ route('createOrder') }}" method="post">
+            <form action="{{ route('cartCheckout') }}" method="post">
                 @csrf
                 <!-- Dine in / dine in now / take away ==> radio -->
                 <div class="form-check">

@@ -42,8 +42,12 @@
                     <li><a href="{{ route('register') }}">{{ __('Register') }}</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                 @else
-                    <li><a href="{{ route('cart', auth()->id()) }}">Cart</a></li>
+                    @if (auth()->user()->role == 'customer')
+                    <li><a href="{{ route('cart') }}">Cart</a></li>
                     <li><a href="{{ route('order') }}">Order</a></li>
+                    @elseif (auth()->user()->role == 'kitchenStaff')
+                    <li><a href="{{ route('kitchenOrder') }}">Order</a></li>
+                    @endif
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>

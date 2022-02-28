@@ -26,15 +26,16 @@ Route::get('/', function () { return view('home'); } )->name('home');
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 
 // Cart
-Route::get('/cart/{user}', [CartController::class, 'index'])->name('cart');
-Route::post('/cart/create/{menu}', [CartController::class, 'store'])->name('addToCart');
-Route::put('/cart/{cart}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
-Route::get('/cart/{cart}/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/cart/create', [CartController::class, 'store'])->name('addToCart');
+Route::put('/cart/{cart}', [CartController::class, 'update'])->name('cartUpdate');
+Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cartDestroy');
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cartCheckout');
 
 // Order
 Route::get('/order', [OrderController::class, 'index'])->name('order');
-Route::post('/order/create', [OrderController::class, 'store'])->name('createOrder');
+Route::get('/staff/order', [OrderController::class, 'kitchenOrder'])->name('kitchenOrder');
+Route::put('/staff/order/{orderItem}', [OrderController::class, 'orderStatusUpdate'])->name('orderStatusUpdate');
 
 // PayPal
 Route::get('/create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');

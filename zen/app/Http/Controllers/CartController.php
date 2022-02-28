@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
-use App\Models\Menu;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -15,19 +13,19 @@ class CartController extends Controller
     }
 
     // User requests to view their cart
-    public function index(User $user) {
-        $cartItems = CartItem::where('user_id', $user->id)->get();
+    public function index() {
+        $cartItems = auth()->user()->cartItems->where('order_id', null);
         return view('cart', compact('cartItems')); 
     }
 
     // User adds to cart
-    public function store(Menu $menu) {
+    public function store(Request $request) {
         auth()->user()->cartItems()->create([
-            'menu_id' => $menu->id,
+            'menu_id' => $request->menuID,
             'quantity' => 1,
         ]);
 
-        return back()->with('success', "{$menu->name} added to cart.");
+        return back()->with('success', "{$request->menuName} added to cart.");
     }
 
     // User modifies the quantity of their cart item
@@ -55,7 +53,21 @@ class CartController extends Controller
     }
 
     // User perform cart checkout
-    public function checkout(CartItem $cart) {
+    public function checkout(Request $request) {
+        $data = $this->validate($request, [
+            'type' => ['required'], // order type (dineIn / takeAway)
+            'dateTime' => ['required'], // order date time (when the user wants to be served.)
+        ]);
+
+        // Create order
+        $order = auth()->user()->orders()->create($data);
         
+        // Empty Cart
+        $carts = auth()->user()->cartItems;
+        foreach($carts as $cart) {
+            $cart->order_id = $order->id;
+            $cart->save();
+        }
+        return redirect()->route('menu')->with('success', 'Order placed!');
     }
 }

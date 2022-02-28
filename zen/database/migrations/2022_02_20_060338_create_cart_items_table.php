@@ -19,7 +19,7 @@ class CreateCartItemsTable extends Migration
             $table->foreignId('menu_id')->constrained()->onDelete('cascade');
             $table->foreignId('order_id')->nullable()->constrained()->onDelete('cascade');
             $table->integer('quantity');
-            $table->boolean('fulfilled')->nullable()->default(null);
+            $table->boolean('fulfilled')->nullable()->default(false);
         });
     }
 
