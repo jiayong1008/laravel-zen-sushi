@@ -15,7 +15,6 @@ class OrderController extends Controller
     public function index() {
         $activeOrders = auth()->user()->orders->where('completed', 0);
         $historyOrders = auth()->user()->orders->where('completed', 1);
-        // order history
         return view('order', compact('activeOrders', 'historyOrders'));
     }
 
