@@ -36,7 +36,7 @@ function navAnimation() {
 function lightNav(nav, logo, logoName, links, burgerLines, delay=0) {
     setTimeout(() => {
         nav.classList.add('nav-scroll');
-        logo.src = "./images/Black Logo.png";
+        logo.src = assetBaseUrl + "images/Black Logo.png";
         logoName.classList.add('nav-link-scroll');
         links.forEach(link => {
             link.classList.add('nav-link-scroll');
@@ -56,12 +56,12 @@ function darkNav(nav, logo, logoName, links, burgerLines, delay=0) {
             link.classList.remove('nav-link-scroll');
         })
         if (nav.dataset.theme === "light") {
-            logo.src = "./images/Black Logo.png";
+            logo.src = assetBaseUrl + "images/Black Logo.png";
             burgerLines.forEach(line => {
                 line.style.backgroundColor = dark;
             });
         } else {
-            logo.src = "./images/White Logo.png";
+            logo.src = assetBaseUrl + "images/White Logo.png";
             burgerLines.forEach(line => {
                 line.style.backgroundColor = light;
             });

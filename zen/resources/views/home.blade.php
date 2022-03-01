@@ -11,7 +11,7 @@
 {{ 'dark' }}@endsection
 
 @section('logoFileName')
-{{ './images/White Logo.png' }}@endsection
+{{ URL::asset('/images/White Logo.png') }}@endsection
 
 
 @section('content')

@@ -11,6 +11,9 @@
     <title>{{ config('app.name', "Zen's Sushi") }}</title>
 
     <!-- Scripts -->
+    <script>
+        var assetBaseUrl = "{{ asset('') }}";
+    </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -27,18 +30,24 @@
 </head>
 <body id="@yield('bodyID')">
 <header>
-        <nav data-theme="@yield('navTheme')" class="home-nav">
+        <nav data-theme="@yield('navTheme')" class="home-nav @yield('navTheme')">
             <a href="/" class="logo-wrapper">
                 <img class="logo" src="@yield('logoFileName')" alt="logo">
                 <h3 class="logo-name">{{ config('app.name') }}</h3>
             </a>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
-                <li><a href="/menu.html">Menu</a></li>
+                <li><a href="{{ route('menu') }}">Menu</a></li>
                 @guest
                     <li><a href="{{ route('register') }}">{{ __('Register') }}</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                 @else
+                    @if (auth()->user()->role == 'customer')
+                    <li><a href="{{ route('cart') }}">Cart</a></li>
+                    <li><a href="{{ route('order') }}">Order</a></li>
+                    @elseif (auth()->user()->role == 'kitchenStaff')
+                    <li><a href="{{ route('kitchenOrder') }}">Order</a></li>
+                    @endif
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>

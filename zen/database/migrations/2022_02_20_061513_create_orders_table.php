@@ -17,8 +17,9 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->timestamp('dateTime');
             $table->boolean('completed')->default(false);
-            $table->string('type'); // dineIn OR takeAway
+            $table->string('type'); // dineIn, takeAway
         });
     }
 
@@ -29,6 +30,7 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
+        Schema::dropForeign(['user_id']);
         Schema::dropIfExists('orders');
     }
 }

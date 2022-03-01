@@ -17,7 +17,7 @@ class CreateMenusTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->decimal('price', $precision=6, $scale=2);
+            $table->decimal('price', 6, 2);
             $table->string('image');
             $table->string('size');
         });
