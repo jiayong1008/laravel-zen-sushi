@@ -20,6 +20,10 @@ require __DIR__.'/auth.php';
 
 Route::get('/', function () { return view('home'); } )->name('home');
 
+// Account Creation
+Route::get('/account/create', [AccountCreationController::class, 'create'])->name('accountCreation');
+Route::post('/account/create', [AccountCreationController::class, 'store'])->name('accountStoring');
+
 // Menu
 // pliz modify and make ur own controller, Im juz implementing 
 // dis to get my 'cart' route working - JY
