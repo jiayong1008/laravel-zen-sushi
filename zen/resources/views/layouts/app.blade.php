@@ -46,7 +46,7 @@
                     @if (auth()->user()->role == 'customer')
                     <li><a href="{{ route('cart') }}">Cart</a></li>
                     <li><a href="{{ route('order') }}">Order</a></li>
-                    @elseif (auth()->user()->role == 'kitchenStaff')
+                    @elseif (auth()->user()->role != 'customer')
                     <li><a href="{{ route('kitchenOrder') }}">Order</a></li>
                     @endif
                     <li>
