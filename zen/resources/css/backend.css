@@ -37,18 +37,7 @@ Side Bar Starts Here
     padding-right: 30px;
 }
 
-#sidebar-dashboard {
-    display: block;
-    line-height: 65px;
-    font-size: 18px;
-    color: #e8360e;
-    padding-left: 20px;
-    box-sizing: border-box;
-    border: 1px solid #e8360e;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
+#sidebar-dashboard,
 #sidebar-orders,
 #sidebar-menu,
 #sidebar-account,
@@ -62,6 +51,11 @@ Side Bar Starts Here
     border: none;
     border-radius: 5px;
     text-decoration: none;
+}
+
+.sidebar-active {
+    border: 1px solid #e8360e !important;
+    color: #e8360e !important;
 }
 
 .sidebar ul a i {

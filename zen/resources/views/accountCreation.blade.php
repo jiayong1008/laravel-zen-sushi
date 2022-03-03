@@ -14,6 +14,9 @@
 @section('content')
 <section class="content">
     <br>
+    @if (session('success'))
+        {{ session('success') }}
+    @endif
     <br>
     <div class="row" id="top-bar">
         <div class="col-md-2" id="title">
@@ -21,7 +24,7 @@
         </div>
 
         <div class="col-md-1" id="report">
-            <button type="button" class="btn btn-dark">Report</button>
+            <div class="btn btn-dark">Modern</div>
         </div>
     </div>
     <br>
@@ -31,7 +34,7 @@
             <form method="POST" action="{{ route('accountStoring') }}" id="accountCreationForm">
                 @csrf
 
-                <div class="row mb-4">
+                <div class="row mb-5">
                     <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                     <div class="col-md-6">
@@ -45,7 +48,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
+                <div class="row mb-5">
                     <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                     <div class="col-md-6">
@@ -59,7 +62,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
+                <div class="row mb-5">
                     <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                     <div class="col-md-6">
@@ -73,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
+                <div class="row mb-5">
                     <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
 
                     <div class="col-md-6">
@@ -91,7 +94,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
+                <div class="row mb-5">
                     <div class="col-md-6 offset-md-5">
                         <input form="accountCreationForm" type="submit" class="btn btn-primary px-4" value="{{ __('Create') }}"></input>
                     </div>
