@@ -42,12 +42,22 @@
             <br>
             <li ><a href="account.html" id="sidebar-account"><i class="fa fa-user" aria-hidden="true"></i>Account</a></li>
             <br>
-            <li ><a href="index.html" id="sidebar-logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+            <li >
+                <a href="{{ route('logout') }}" id="sidebar-logout" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>{{ __('Logout') }}
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
             
         </ul>
     </div>
 
-    @yield('content')
+    <div class="container">
+        @yield('content')
+    </div>
     
 </body>
 </html>
