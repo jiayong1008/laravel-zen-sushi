@@ -20,6 +20,9 @@ class AccountCreationController extends Controller
      */
     public function create()
     {
+        if (auth()->user()->role != 'admin')
+            abort(403, 'This route is only meant for restaurant admins.');
+
         return view('accountCreation'); 
     }
 
