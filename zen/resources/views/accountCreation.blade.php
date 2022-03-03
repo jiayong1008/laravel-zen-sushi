@@ -1,28 +1,24 @@
-@extends('layouts.app')
+@extends('layouts.backend')
 
 @section('links')
-    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/accountCreation.css') }}" rel="stylesheet">
 @endsection
 
 @section('bodyID')
 {{ 'accountCreation' }}@endsection
-
-@section('navTheme')
-{{ 'light' }}@endsection
 
 @section('logoFileName')
 {{ URL::asset('/images/Black Logo.png') }}@endsection
 
 
 @section('content')
-<section class="cart" style="margin-top: 20vh;">
-    <div class="container">
-        <h2 class="d-flex justify-content-center">CREATE ACCOUNTS</h2>
-        @if (session('success'))
-            {{ session('success') }}
-        @endif
-        
-        
+<div class="row" id="top-bar">
+    <div class="col-md-2" id="title">
+        <label>Create Accounts</label>
     </div>
-</section>
+
+    <div class="col-md-1" id="report">
+        <button type="button" class="btn btn-dark">Report</button>
+    </div>
+</div>
 @endsection

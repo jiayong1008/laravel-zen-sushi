@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    font-family: "poppins", sans-serif;
+}
+
+/*-------------------
+
+Side Bar Starts Here
+
+---------------------*/
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    width: 250px;
+    min-height: 100vh;
+    background-color: white;
+    box-shadow: 5px 0 5px -5px #4b4949;
+}
+
+#logo {
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    user-select: none;
+}
+
+.sidebar ul {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#sidebar-dashboard {
+    display: block;
+    line-height: 65px;
+    font-size: 18px;
+    color: #e8360e;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border: 1px solid #e8360e;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+#sidebar-orders,
+#sidebar-menu,
+#sidebar-account,
+#sidebar-logout {
+    display: block;
+    line-height: 65px;
+    font-size: 18px;
+    color: black;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.sidebar ul a i {
+    margin-right: 15px;
+}
+
+/*-------------------
+
+Side Bar Ends Here
+
+---------------------*/
+
+/*-------------------
+
+Main Content Starts Here
+
+---------------------*/
+
+.content {
+    margin-left: 250px;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    padding-left: 70px;
+}
+
+#title {
+    font-size: 45px;
+    font-weight: bolder;
+    width: fit-content;
+}
+
+#report {
+    margin-top: 15px;
+    width: fit-content;
+}
+
+#sales-overview {
+    height: 500px;
+    margin: 12.5px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+#sales-overview-title {
+    padding-top: 15px;
+    padding-left: 15px;
+    font-weight: bold;
+}
+
+#reservation {
+    margin: 12.5px;
+    height: 500px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+#reservation-title {
+    padding-top: 15px;
+    padding-left: 15px;
+    font-weight: bold;
+}
+
+#trending {
+    height: 250px;
+    width: 389px;
+    margin: 12.5px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+#trending-title {
+    padding-top: 15px;
+    padding-left: 15px;
+    font-weight: bold;
+}
+
+#feedback {
+    height: 250px;
+    width: 389px;
+    margin: 12.5px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+#feedback-title {
+    padding-top: 15px;
+    padding-left: 15px;
+    font-weight: bold;
+}
+
+#sales-overview:hover,
+#reservation:hover,
+#trending:hover,
+#feedback:hover {
+    transition: all 0.5s;
+    box-shadow: 5px 5px 5px -5px #4b4949;
+}
+
+/*-------------------
+
+Main Content Ends Here
+
+---------------------*/
