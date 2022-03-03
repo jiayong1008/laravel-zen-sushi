@@ -29,7 +29,10 @@ Side Bar Starts Here
     margin-right: auto;
     margin-top: 50px;
     margin-bottom: 50px;
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 
 .sidebar ul {
@@ -90,11 +93,15 @@ Main Content Starts Here
 #title {
     font-size: 45px;
     font-weight: bolder;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
 #report {
     margin-top: 15px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -165,3 +172,4 @@ Main Content Starts Here
 Main Content Ends Here
 
 ---------------------*/
+
