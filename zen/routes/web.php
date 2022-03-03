@@ -5,6 +5,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\AccountCreationController;
 
 require __DIR__.'/auth.php';
 /*
@@ -19,6 +20,10 @@ require __DIR__.'/auth.php';
 */
 
 Route::get('/', function () { return view('home'); } )->name('home');
+
+// Account Creation
+Route::get('/account/create', [AccountCreationController::class, 'create'])->name('accountCreation');
+Route::post('/account/create', [AccountCreationController::class, 'store'])->name('accountStoring');
 
 // Menu
 // pliz modify and make ur own controller, Im juz implementing 
