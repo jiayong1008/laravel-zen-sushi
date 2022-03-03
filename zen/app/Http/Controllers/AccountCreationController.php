@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class AccountCreationController extends Controller
 {
 
+    // only authenticated users are allowed to use this controller.
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,6 +24,7 @@ class AccountCreationController extends Controller
      */
     public function create()
     {
+        // only admins are allowed to view this page.
         if (auth()->user()->role != 'admin')
             abort(403, 'This route is only meant for restaurant admins.');
 
@@ -38,6 +40,7 @@ class AccountCreationController extends Controller
     public function store(Request $request)
     {
 
+        // validate requests.
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -45,6 +48,7 @@ class AccountCreationController extends Controller
             'role' => ['required', 'string']
         ]);
 
+        // after validation, create the user accordingly.
         $user = User::create([
             'username' => $request->name,
             'email' => $request->email,
@@ -52,6 +56,7 @@ class AccountCreationController extends Controller
             'role' => $request->role
         ]);
 
+        // redirect back to account creation page along with a success session.
         return redirect()->route('accountCreation')->with('success', 'Account created!');
     }
 }
