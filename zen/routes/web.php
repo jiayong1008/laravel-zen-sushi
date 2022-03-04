@@ -34,7 +34,7 @@ Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/create', [CartController::class, 'store'])->name('addToCart');
 Route::put('/cart/{cart}', [CartController::class, 'update'])->name('cartUpdate');
-Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cartDestroy');
+Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cartDestroy'); // NOT USED ANYMORE
 Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cartCheckout');
 
 // Order
