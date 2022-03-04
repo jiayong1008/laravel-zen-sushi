@@ -14,8 +14,13 @@ class CartController extends Controller
 
     // User requests to view their cart
     public function index() {
+        $subtotal = 0;
         $cartItems = auth()->user()->cartItems->where('order_id', null);
-        return view('cart', compact('cartItems')); 
+        foreach($cartItems as $item)
+        {
+            $subtotal = $subtotal + ($item->menu->price * $item->quantity);
+        }
+        return view('cart', compact('cartItems', 'subtotal')); 
     }
 
     // User adds to cart

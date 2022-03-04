@@ -20,84 +20,124 @@
         <h2 class="d-flex justify-content-center">CART</h2>
         @if (session('success'))
             {{ session('success') }}
+        @elseif (session('error'))
+            {{ session('error') }}
         @endif
         
         @if ($cartItems->count())
-            <div class="d-flex flex-wrap">
-                @foreach ($cartItems as $item)
-                    <div class="card col-md-3 col-sm-6">
+
+            <div class="container py-5">
+                <div class="card col-md-6 col-12 offset-md-3">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $item->menu->name }}</h5>
-                        <div class="cart-detail d-flex my-3">
-                            <form action="{{ route('cartUpdate', $item) }}" method="post">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="cartAction" value="-">
-                                <button type="submit" class="btn btn-outline-secondary">-</button>
-                            </form>
-                            <h6 class="card-subtitle text-muted d-flex align-items-center mx-3">RM {{ $item->menu->price }} x {{ $item->quantity }}</h6>
-                            <h5 class="card-subtitle text-muted d-flex align-items-center mx-3">RM {{ $item->menu->price * $item->quantity }}</h5>
-                            <form action="{{ route('cartUpdate', $item) }}" method="post">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="cartAction" value="+">
-                                <button type="submit" class="btn btn-outline-secondary">+</button>
-                            </form>                        
+                        <h4 class="card-title mb-5">Zen Sushi Wishlist <span class="text-secondary h5">- {{ $cartItems->count() }} Items</span></h4>
+                        @foreach ($cartItems as $item)
+                            <div class="w-100 px-3 d-flex align-items-center py-3">
+                                <div class="col-2">
+                                    <img src="./images/chef1.jpg" alt="cart item image" class="img-fluid">
+                                </div>
+                                <div class="col-6 px-4">
+                                    <h5 class="text-dark">{{ $item->menu->name }}</h5>
+                                    <h5 class="text-secondary">RM {{ $item->menu->price * $item->quantity }}</h5>
+                                </div>
+                                <div class="col-4 d-flex align-items-baseline justify-content-end">
+                                    <!-- Decrement button -->
+                                    <form action="{{ route('cartUpdate', $item) }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="cartAction" value="-">
+                                        <button type="submit" class="btn btn-outline-secondary">-</button>
+                                    </form>
+                                    <!-- Quantity -->
+                                    <h5 class="mx-4">{{ $item->quantity }}</h5>
+                                    <!-- Increment button -->
+                                    <form action="{{ route('cartUpdate', $item) }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="cartAction" value="+">
+                                        <button type="submit" class="btn btn-outline-secondary">+</button>
+                                    </form>   
+                                </div>
+                            </div>
+                        @endforeach
+                        <div class="d-flex justify-content-between px-3 mt-5">
+                            <h5 class="text-secondary">Subtotal</h5>
+                            <h5 class="text-dark">RM {{ $subtotal }}</h5>
                         </div>
-                        <form action="{{ route('cartDestroy', $item) }}" method="post">
+                        <!-- Discount Code Section -->
+                        <form action="#" method="post"> <!-- Route to discount controller -->
                             @csrf
-                            @method('DELETE')
-                            <button type="submit" class="primary-btn">Delete</button>
+                            <div class="d-flex flex-column px-3 mt-5 col-12 align-items-center">
+                                <h5 class="text-secondary">Discount Code</h5>
+                                <input type="text" class="form-control mt-3" id="discountCode" placeholder="Place your discount code here...">
+                                <button type="submit" class="btn btn-primary w-100 mt-3">Apply Code</button>
+                            </div>
                         </form>
+                        <div class="d-flex justify-content-between px-3 mt-5">
+                            <h5 class="text-dark">Total</h5>
+                            <h5 class="text-secondary">RM <span class="h4 text-dark">{{ $subtotal }}</span></h5>
+                        </div>
+                        <!-- CHECKOUT START -->
+                        <form action="{{ route('cartCheckout') }}" method="post">
+                            @csrf
+                            <h5 class="text-secondary mt-5 text-center">Order Type</h5>
+                            <!-- Dine in / dine in now / take away ==> radio -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <div class="form-check form-check-inline">
+                                    <input value="dineIn" class="form-check-input @error('type') is-invalid @enderror h5" type="radio" name="type" id="dineInRadio">
+                                    <label class="form-check-label" for="dineInRadio">
+                                        Dine In
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input value="takeAway" class="form-check-input @error('type') is-invalid @enderror h5" type="radio" name="type" id="takeAwayRadio">
+                                    <label class="form-check-label" for="takeAwayRadio">
+                                        Take Away 
+                                    </label>
+                                    @error('type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <h5 class="text-secondary mt-5 text-center">Order Date and Time</h5>
+                            <div class="d-flex justify-content-center mt-4">
+                                <!-- Select Date time (only applicable for dine in / take away, not dine in now) -->
+                                <!-- Perform validation to ensure they don't select time that has passed -->
+                                <input type="datetime-local" name="dateTime" value="{{ old('dateTime') }}" required>
+                                @error('dateTime')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <!-- perhaps add a confirmation during checkout process - like a popup or smtg -->
+                            <button type="submit" class="primary-btn mt-5 w-100">Checkout</button>
+                        </form>
+                        <!-- CHECKOUT END -->
                     </div>
-                    </div>
-                @endforeach
+                </div>
             </div>
-
-            <!-- Discount Code Section -->
-            <form action="#" method="post"> <!-- Route to discount controller -->
-                @csrf
-                <div class="mb-3">
-                    <label for="discountCode" class="form-label">Discount Code</label>
-                    <input type="text" class="form-control" id="discountCode">
-                </div>
-                <button type="submit" class="btn btn-primary">Apply</button>
-            </form>
-
-            <form action="{{ route('cartCheckout') }}" method="post">
-                @csrf
-                <!-- Dine in / dine in now / take away ==> radio -->
-                <div class="form-check">
-                    <input value="dineIn" class="form-check-input @error('type') is-invalid @enderror" type="radio" name="type" id="dineInRadio">
-                    <label class="form-check-label" for="dineInRadio">
-                        Dine In
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input value="takeAway" class="form-check-input @error('type') is-invalid @enderror" type="radio" name="type" id="takeAwayRadio">
-                    <label class="form-check-label" for="takeAwayRadio">
-                        Take Away 
-                    </label>
-                    @error('type')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <!-- Select Date time (only applicable for dine in / take away, not dine in now) -->
-                <!-- Perform validation to ensure they don't select time that has passed -->
-                <input type="datetime-local" name="dateTime" value="{{ old('dateTime') }}" required>
-                @error('dateTime')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-
-                <!-- perhaps add a confirmation during checkout process - like a popup or smtg -->
-                <button type="submit" class="primary-btn mt-5">Checkout</button>
-            </form>
         @else
-            <h5>Empty Cart.</h5>
+            <div class="d-flex justify-content-center">
+                <div class="col-md-4 col-8">
+                    <div class="col-12 mt-5 d-flex align-items-baseline">
+                        <div class="col-2 px-2">
+                            <img src="./images/cart.svg" alt="cart" class="img-fluid">
+                        </div>
+                        <div class="col-10">
+                            <h4 class="m-3">Empty Cart</h4>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <p class="h5">Your cart is empty currently. <span><a href="{{ route('menu') }}" class="h5"><u>Add item now</u></a></span></p>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <a href="{{ route('menu') }}"><button class="primary-btn w-100 py-2">See Menu</button></a>
+                    </div>
+                </div>
+            </div>
         @endif
     </div>
 </section>

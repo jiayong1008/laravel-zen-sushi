@@ -8,24 +8,27 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PayPalController extends Controller
 {
-    /**
-     * create transaction or order checkout.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
-    public function createTransaction()
+    // only authenticated users are allowed to use this controller.
+    public function __construct()
     {
-        return view('transaction'); // this is the checkout page.
+        $this->middleware('auth');
     }
 
     /**
-     * process transaction.
+     * process transaction. checkout of cart leads to here.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function processTransaction(Request $request)
+    public function processTransaction(Request $request, float $transactionAmount)
     {
+
+        if ($transactionAmount < 0)
+        {
+            return redirect()->route('createTransaction')->with('error', 'Something went wrong.');
+        }
+
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
@@ -40,7 +43,7 @@ class PayPalController extends Controller
                 0 => [
                     "amount" => [
                         "currency_code" => "MYR",
-                        "value" => "1000.00"
+                        "value" => $transactionAmount
                     ]
                 ]
             ]
@@ -56,12 +59,12 @@ class PayPalController extends Controller
             }
 
             return redirect()
-                ->route('createTransaction')
+                ->route('cart')
                 ->with('error', 'Something went wrong.');
 
         } else {
             return redirect()
-                ->route('createTransaction')
+                ->route('cart')
                 ->with('error', $response['message'] ?? 'Something went wrong.');
         }
     }
@@ -80,11 +83,11 @@ class PayPalController extends Controller
 
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
             return redirect()
-                ->route('createTransaction')
+                ->route('cart')
                 ->with('success', 'Transaction complete.');
         } else {
             return redirect()
-                ->route('createTransaction')
+                ->route('cart')
                 ->with('error', $response['message'] ?? 'Something went wrong.');
         }
     }
@@ -97,7 +100,7 @@ class PayPalController extends Controller
     public function cancelTransaction(Request $request)
     {
         return redirect()
-            ->route('createTransaction')
+            ->route('cart')
             ->with('error', $response['message'] ?? 'You have canceled the transaction.');
     }
 }
