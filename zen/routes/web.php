@@ -43,9 +43,9 @@ Route::get('/staff/order', [OrderController::class, 'kitchenOrder'])->name('kitc
 Route::put('/staff/order/{orderItem}', [OrderController::class, 'orderStatusUpdate'])->name('orderStatusUpdate');
 
 // PayPal
-Route::get('/process-transaction/{transactionAmount}', [PayPalController::class, 'processTransaction'])->name('processTransaction');
-Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
-Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+Route::get('/process-transaction/{transactionAmount}/{orderId}', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+Route::get('/success-transaction/{orderId}', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('/cancel-transaction/{orderId}', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 
 // Dashboard
 // Route::get('/dashboard', function () {

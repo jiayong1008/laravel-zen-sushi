@@ -64,15 +64,18 @@ class CartController extends Controller
             'dateTime' => ['required'], // order date time (when the user wants to be served.)
         ]);
 
+        $subtotal = 0;
+        $cartItems = auth()->user()->cartItems->where('order_id', null);
+        foreach($cartItems as $item)
+        {
+            $subtotal = $subtotal + ($item->menu->price * $item->quantity);
+        }
+
+        // DISCOUNT CODE VALIDATION LOGICS PLACE HERE
+
         // Create order
         $order = auth()->user()->orders()->create($data);
-        
-        // Empty Cart
-        $carts = auth()->user()->cartItems;
-        foreach($carts as $cart) {
-            $cart->order_id = $order->id;
-            $cart->save();
-        }
-        return redirect()->route('menu')->with('success', 'Order placed!');
+
+        return redirect()->route('processTransaction', ['transactionAmount' => $subtotal, 'orderId' => $order->id]); // subtotal for now, it will be 'total' after discounting.
     }
 }

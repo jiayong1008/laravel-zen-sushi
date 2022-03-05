@@ -60,25 +60,17 @@
                             </div>
                         @endforeach
                         <div class="d-flex justify-content-between px-3 mt-5">
-                            <h5 class="text-secondary">Subtotal</h5>
+                            <h5 class="text-dark">Subtotal</h5>
                             <h5 class="text-dark">RM {{ $subtotal }}</h5>
                         </div>
-                        <!-- Discount Code Section -->
-                        <form action="#" method="post"> <!-- Route to discount controller -->
+
+                        <!-- CHECKOUT ALONG WITH DISCOUNT CODE APPLICATION START -->
+                        <form action="{{ route('cartCheckout') }}" method="post">
                             @csrf
                             <div class="d-flex flex-column px-3 mt-5 col-12 align-items-center">
                                 <h5 class="text-secondary">Discount Code</h5>
-                                <input type="text" class="form-control mt-3" id="discountCode" placeholder="Place your discount code here...">
-                                <button type="submit" class="btn btn-primary w-100 mt-3">Apply Code</button>
+                                <input type="text" class="form-control mt-3" name="discountCode" id="discountCode" placeholder="Place your discount code here...">
                             </div>
-                        </form>
-                        <div class="d-flex justify-content-between px-3 mt-5">
-                            <h5 class="text-dark">Total</h5>
-                            <h5 class="text-secondary">RM <span class="h4 text-dark">{{ $subtotal }}</span></h5>
-                        </div>
-                        <!-- CHECKOUT START -->
-                        <form action="{{ route('cartCheckout') }}" method="post">
-                            @csrf
                             <h5 class="text-secondary mt-5 text-center">Order Type</h5>
                             <!-- Dine in / dine in now / take away ==> radio -->
                             <div class="d-flex justify-content-center mt-4">
