@@ -92,7 +92,7 @@ class PayPalController extends Controller
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
             
             // Transaction succeed, empty the cart.
-            $carts = auth()->user()->cartItems;
+            $carts = auth()->user()->cartItems()->where('order_id', null)->get();
             foreach($carts as $cart) {
                 $cart->order_id = $orderId;
                 $cart->save();
