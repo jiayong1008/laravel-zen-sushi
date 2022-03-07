@@ -16,4 +16,5 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css')
     .postCss('resources/css/home.css', 'public/css')
     .postCss('resources/css/backend.css', 'public/css')
+    .postCss('resources/css/order.css', 'public/css')
     .sourceMaps();

@@ -39,8 +39,11 @@ Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cartCh
 
 // Order
 Route::get('/order', [OrderController::class, 'index'])->name('order');
+Route::get('/order/{order}', [OrderController::class, 'show'])->name('specificOrder');
 Route::get('/staff/order', [OrderController::class, 'kitchenOrder'])->name('kitchenOrder');
-Route::put('/staff/order/{orderItem}', [OrderController::class, 'orderStatusUpdate'])->name('orderStatusUpdate');
+Route::get('/staff/order/{order}', [OrderController::class, 'specificKitchenOrder'])->name('specificKitchenOrder');
+Route::put('/staff/order/update/{orderItem}', [OrderController::class, 'orderStatusUpdate'])->name('orderStatusUpdate');
+Route::get('/staff/previous-order', [OrderController::class, 'previousOrder'])->name('previousOrder');
 
 // PayPal
 Route::get('/create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
@@ -49,6 +52,6 @@ Route::get('/success-transaction', [PayPalController::class, 'successTransaction
 Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 
 // Dashboard
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');

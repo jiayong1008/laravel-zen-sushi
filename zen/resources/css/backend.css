@@ -6,14 +6,28 @@
     font-family: "poppins", sans-serif;
 }
 
+
+/* NAV */
+nav {
+    display: none !important;
+}
+
+nav .nav-links {
+    width: 65%;
+}
+
+.burger div {
+    background-color: rgb(82, 82, 82);
+}
+
+
 /*-------------------
-
-Side Bar Starts Here
-
+    Side Bar
 ---------------------*/
 
 .sidebar {
     position: fixed;
+    top: 0;
     left: 0;
     width: 250px;
     min-height: 100vh;
@@ -63,15 +77,24 @@ Side Bar Starts Here
 }
 
 /*-------------------
-
-Side Bar Ends Hereee
-
+Responsive Navigation
 ---------------------*/
+@media screen and (max-width: 990px) {
+    nav {
+        display: flex !important;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .pl-250 {
+        padding-left: 0 !important;
+    }
+}
 
 /*-------------------
-
 Main Content Starts Here
-
 ---------------------*/
 
 .content {
@@ -79,6 +102,10 @@ Main Content Starts Here
     min-height: 100vh;
     background-color: #f0f0f0;
     padding-left: 70px;
+}
+
+.pl-250 {
+    padding-left: 250px;
 }
 
 #title {

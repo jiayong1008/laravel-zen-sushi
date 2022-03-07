@@ -100,7 +100,7 @@ function burgerAnimation() {
         });
         if (navLinks.classList.contains('nav-open'))
             lightNav(nav, logo, logoName, links, burgerLines, 200);
-        else
+        else if (window.scrollY <= 10 && !navLinks.classList.contains('nav-open'))
             darkNav(nav, logo, logoName, links, burgerLines, 450);
     }
 }

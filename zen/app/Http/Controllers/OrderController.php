@@ -12,34 +12,60 @@ class OrderController extends Controller
         return $this->middleware('auth');
     }
 
-    public function index() {
-        $activeOrders = auth()->user()->orders->where('completed', 0);
-        $historyOrders = auth()->user()->orders->where('completed', 1);
-        return view('order', compact('activeOrders', 'historyOrders'));
+    public function index() { // Cust regular order page
+        $activeOrder = auth()->user()->orders()->where('completed', 0)->orderBy('dateTime', 'desc')->first();
+        $allOrders = auth()->user()->orders()->orderBy('dateTime', 'desc')->get();
+        return view('order', compact('activeOrder', 'allOrders'));
     }
 
-    public function kitchenOrder() {
+    public function show(Order $order) { // Customer specific order page
+        $activeOrder = $order;
+        $allOrders = auth()->user()->orders()->orderBy('dateTime', 'desc')->get();
+        return view('order', compact('activeOrder', 'allOrders'));
+    }
+
+    public function kitchenOrder() { // Kitchen or Admin's order page
         if (auth()->user()->role == 'customer')
             abort(403, 'This route is only meant for restaurant staffs.');
 
         $activeOrders = Order::where('completed', 0)->orderBy('dateTime', 'desc')->get();
-        return view('kitchenOrder', compact('activeOrders'));
+        $firstOrder = $activeOrders->first();
+        return view('kitchenOrder', compact('firstOrder', 'activeOrders'));
     }
 
-    public function orderStatusUpdate(CartItem $orderItem) {
+    public function specificKitchenOrder(Order $order) { // Kitchen or Admin's specific order page
         if (auth()->user()->role == 'customer')
             abort(403, 'This route is only meant for restaurant staffs.');
 
-        $orderItem->fulfilled = true;
+        $activeOrders = Order::where('completed', 0)->orderBy('dateTime', 'desc')->get();
+        $firstOrder = $order;
+        return view('kitchenOrder', compact('firstOrder', 'activeOrders'));
+    }
+
+    public function orderStatusUpdate(CartItem $orderItem) { // Kitchen or Admin update order status
+        if (auth()->user()->role == 'customer')
+            abort(403, 'This route is only meant for restaurant staffs.');
+
+        $orderItem->fulfilled = $orderItem->fulfilled ? false : true;
         $orderItem->save();
 
         $cartItems = CartItem::where('order_id', $orderItem->order_id)->get();
         foreach ($cartItems as $item) {
             if (!$item->fulfilled)
-                return back();
+                return redirect()->route('kitchenOrder');
         }
         $orderItem->order->completed = true;
         $orderItem->push();
-        return back();
+        return redirect()->route('kitchenOrder');
+    }
+
+    public function previousOrder() { // Kitchen or Admin view all previous orders
+        if (auth()->user()->role == 'customer')
+            abort(403, 'This route is only meant for restaurant staffs.');
+
+        // this is actually 'previousOrders' not 'activeOrders', but i name it this way 
+        // just for the blade's variable naming sake
+        $previousOrders = Order::where('completed', 1)->orderBy('dateTime', 'desc')->get();
+        return view('previousOrder', compact('previousOrders'));
     }
 }

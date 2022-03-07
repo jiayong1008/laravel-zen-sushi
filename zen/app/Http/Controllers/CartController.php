@@ -63,7 +63,7 @@ class CartController extends Controller
         $order = auth()->user()->orders()->create($data);
         
         // Empty Cart
-        $carts = auth()->user()->cartItems;
+        $carts = auth()->user()->cartItems()->where('order_id', null)->get();
         foreach($carts as $cart) {
             $cart->order_id = $order->id;
             $cart->save();

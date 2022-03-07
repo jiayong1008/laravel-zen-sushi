@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends(( auth()->user()->role == 'customer' ) ? 'layouts.app' : 'layouts.backend' )
 
 @section('links')
-    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
 @endsection
 
 @section('bodyID')
