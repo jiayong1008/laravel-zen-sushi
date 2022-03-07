@@ -117,7 +117,7 @@ class PayPalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function cancelTransaction(Request $request)
+    public function cancelTransaction(Request $request, int $orderId)
     {
 
         // Transaction failed, delete the created order.
