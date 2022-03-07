@@ -14,8 +14,13 @@ class CartController extends Controller
 
     // User requests to view their cart
     public function index() {
+        $subtotal = 0;
         $cartItems = auth()->user()->cartItems->where('order_id', null);
-        return view('cart', compact('cartItems')); 
+        foreach($cartItems as $item)
+        {
+            $subtotal = $subtotal + ($item->menu->price * $item->quantity);
+        }
+        return view('cart', compact('cartItems', 'subtotal')); 
     }
 
     // User adds to cart
@@ -45,7 +50,7 @@ class CartController extends Controller
         return back();
     }
 
-    // User modifies the quantity of their cart item
+    // User modifies the quantity of their cart item (NOT USED ANYMORE)
     public function destroy(CartItem $cart) {
         $dish = $cart->menu->name;
         $cart->delete();
@@ -59,15 +64,19 @@ class CartController extends Controller
             'dateTime' => ['required'], // order date time (when the user wants to be served.)
         ]);
 
+        $subtotal = 0;
+        $cartItems = auth()->user()->cartItems->where('order_id', null);
+        foreach($cartItems as $item)
+        {
+            $subtotal = $subtotal + ($item->menu->price * $item->quantity);
+        }
+
+        // DISCOUNT CODE VALIDATION LOGICS PLACE HERE
+
         // Create order
         $order = auth()->user()->orders()->create($data);
         
-        // Empty Cart
-        $carts = auth()->user()->cartItems()->where('order_id', null)->get();
-        foreach($carts as $cart) {
-            $cart->order_id = $order->id;
-            $cart->save();
-        }
-        return redirect()->route('menu')->with('success', 'Order placed!');
+        // subtotal for now, it will be 'total' after discounting.
+        return redirect()->route('processTransaction', ['transactionAmount' => $subtotal, 'orderId' => $order->id]); 
     }
 }

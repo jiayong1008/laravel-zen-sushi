@@ -34,7 +34,7 @@ Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/create', [CartController::class, 'store'])->name('addToCart');
 Route::put('/cart/{cart}', [CartController::class, 'update'])->name('cartUpdate');
-Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cartDestroy');
+Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cartDestroy'); // NOT USED ANYMORE
 Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cartCheckout');
 
 // Order
@@ -46,10 +46,9 @@ Route::put('/staff/order/update/{orderItem}', [OrderController::class, 'orderSta
 Route::get('/staff/previous-order', [OrderController::class, 'previousOrder'])->name('previousOrder');
 
 // PayPal
-Route::get('/create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
-Route::get('/process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
-Route::get('/success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
-Route::get('/cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+Route::get('/process-transaction/{transactionAmount}/{orderId}', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+Route::get('/success-transaction/{orderId}', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('/cancel-transaction/{orderId}', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 
 // Dashboard
 Route::get('/dashboard', function () {
