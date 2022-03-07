@@ -30,7 +30,7 @@
     
 </head>
 <body id="@yield('bodyID')">
-<header>
+    <header>
         <nav data-theme="@yield('navTheme')" class="home-nav @yield('navTheme')">
             <a href="/" class="logo-wrapper">
                 <img class="logo" src="@yield('logoFileName')" alt="logo">

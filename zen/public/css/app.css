@@ -11341,7 +11341,7 @@ button {
 
 .primary-btn:hover {
     background-color: rgb(231, 231, 231);
-    color: rgb(61, 61, 61);
+    color: rgb(61, 61, 61) !important;
 }
 
 .dark {
@@ -11353,6 +11353,11 @@ button {
     justify-content: center;
     align-items: center;
 }
+
+.pt-18vh {
+    padding-top: 18vh;
+}
+
 
 /* ====================
         NAVBAR 
@@ -11460,7 +11465,7 @@ nav {
         top: 0vh;
         left: 0px;
         height: 50vh;
-        width: 100%;
+        width: 100% !important;
         padding-top: 10vh;
         flex-direction: column;
         background-color: #EFEFEF;
