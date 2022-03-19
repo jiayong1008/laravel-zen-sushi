@@ -55,7 +55,6 @@
             <tbody>
                 @foreach ($discounts as $discount)
                     <tr>
-                        
                         <th scope="row"><a href="{{ route('specificDiscount', $discount->discountCode) }}">
                             {{ $discount->discountCode }} </a></th>
                         <td>{{ $discount->percentage }}%</td>

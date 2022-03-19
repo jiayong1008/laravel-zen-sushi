@@ -14,17 +14,23 @@ class CartController extends Controller
 
     // User requests to view their cart
     public function index() {
+        if (auth()->user()->role != 'customer')
+            abort(403, 'This route is only meant for customers.');
+        
         $subtotal = 0;
         $cartItems = auth()->user()->cartItems->where('order_id', null);
-        foreach($cartItems as $item)
-        {
+        foreach($cartItems as $item) {
             $subtotal = $subtotal + ($item->menu->price * $item->quantity);
         }
+        
         return view('cart', compact('cartItems', 'subtotal')); 
     }
 
     // User adds to cart
     public function store(Request $request) {
+        if (auth()->user()->role != 'customer')
+            abort(403, 'This route is only meant for customers.');
+
         auth()->user()->cartItems()->create([
             'menu_id' => $request->menuID,
             'quantity' => 1,
@@ -35,6 +41,9 @@ class CartController extends Controller
 
     // User modifies the quantity of their cart item
     public function update(CartItem $cart, Request $request) {
+        if (auth()->user()->role != 'customer')
+            abort(403, 'This route is only meant for customers.');
+
         if ($request->cartAction == "-") {
             if ($cart->quantity > 1)
                 $cart->quantity--;
@@ -52,6 +61,9 @@ class CartController extends Controller
 
     // User perform cart checkout
     public function checkout(Request $request) {
+        if (auth()->user()->role != 'customer')
+            abort(403, 'This route is only meant for customers.');
+            
         $data = $this->validate($request, [
             'type' => ['required'], // order type (dineIn / takeAway)
             'dateTime' => ['required'], // order date time (when the user wants to be served.)

@@ -20,11 +20,15 @@ class DiscountController extends Controller
     }
 
     public function createDiscount() {
+        if (auth()->user()->role != 'admin')
+            abort(403, 'This route is only meant for restaurant admins.');
         return view('createDiscount');
     }
 
     public function store(Request $request) {
-        // Logic for create discount
+        if (auth()->user()->role != 'admin')
+            abort(403, 'This route is only meant for restaurant admins.');
+        
         $data = $this->validate($request, [
             'discountCode' => ['required', 'string', 'max:30', 'unique:App\Models\Discount'],
             'percentage' => ['required', 'integer', 'min:1', 'max:100'],
@@ -43,6 +47,8 @@ class DiscountController extends Controller
     }
 
     public function specificDiscount() {
+        if (auth()->user()->role != 'admin')
+            abort(403, 'This route is only meant for restaurant admins.');
         // Prolly a form thats prefilled with ori detail - suggestion oni
         // for staff to view / edit / delete the specific discount voucher
     }
