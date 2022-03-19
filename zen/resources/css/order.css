@@ -70,8 +70,9 @@
 }
 
 #previousOrder a.primary-btn {
-    padding: 10px 30px;
-    border-radius: 30%;
+    height: fit-content;
+    padding: 5px 20px;
+    border-radius: 0.5rem;
 }
 
 #kitchenOrder a.primary-btn {

@@ -55,11 +55,16 @@ class Order extends Model
         return number_format((float)$number, 2, '.', '');
     }
   
+    // RELATIONSHIPS
     public function user() {
         return $this->belongsTo(User::class);
     }
 
     public function cartItems() {
         return $this->hasMany(CartItem::class);
+    }
+
+    public function transaction() {
+        return $this->hasOne(Transaction::class);
     }
 }

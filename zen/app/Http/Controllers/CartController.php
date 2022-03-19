@@ -50,13 +50,6 @@ class CartController extends Controller
         return back();
     }
 
-    // User modifies the quantity of their cart item (NOT USED ANYMORE)
-    public function destroy(CartItem $cart) {
-        $dish = $cart->menu->name;
-        $cart->delete();
-        return back()->with('success', "{$dish} deleted from cart.");
-    }
-
     // User perform cart checkout
     public function checkout(Request $request) {
         $data = $this->validate($request, [

@@ -41,6 +41,7 @@
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('kitchenOrder') }}">Orders</a></li>
                 <li><a href="{{ route('menu') }}">Menu</a></li>
+                <li><a href="{{ route('discount') }}">Discount</a></li>
                 <li><a href="{{ route('accountCreation') }}">Account</a></li>
                 <li>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
