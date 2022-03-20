@@ -36,7 +36,7 @@ Route::get('/discount', [DiscountController::class, 'index'])->name('discount');
 Route::get('/discount/create', [DiscountController::class, 'createDiscount'])->name('createDiscount');
 Route::post('/discount/create', [DiscountController::class, 'store']);
 Route::get('/discount/{discount}', [DiscountController::class, 'specificDiscount'])->name('specificDiscount');
-Route::put('/discount/{discount}', [DiscountController::class, 'update'])->name('discountUpdate');
+Route::post('/discount/{discount}', [DiscountController::class, 'update'])->name('discountUpdate');
 Route::delete('/discount/{discount}', [DiscountController::class, 'destroy'])->name('discountDestroy');
 
 // Cart

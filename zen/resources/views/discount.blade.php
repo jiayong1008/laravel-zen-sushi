@@ -55,7 +55,7 @@
             <tbody>
                 @foreach ($discounts as $discount)
                     <tr>
-                        <th scope="row"><a href="{{ route('specificDiscount', $discount->discountCode) }}">
+                        <th scope="row"><a href="{{ route('specificDiscount', $discount->id) }}">
                             {{ $discount->discountCode }} </a></th>
                         <td>{{ $discount->percentage }}%</td>
                         <td>RM{{ number_format($discount->minSpend, 2) }}</td>

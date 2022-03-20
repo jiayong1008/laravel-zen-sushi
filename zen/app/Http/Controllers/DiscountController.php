@@ -25,12 +25,14 @@ class DiscountController extends Controller
         return view('createDiscount');
     }
 
-    public function store(Request $request) {
-        if (auth()->user()->role != 'admin')
-            abort(403, 'This route is only meant for restaurant admins.');
-        
+    private function validateDiscount(Request $request, $type) {
+        if ($type == 'update')
+            $discountCode = ['required', 'string', 'max:30'];
+        else
+            $discountCode = ['required', 'string', 'max:30', 'unique:App\Models\Discount'];
+
         $data = $this->validate($request, [
-            'discountCode' => ['required', 'string', 'max:30', 'unique:App\Models\Discount'],
+            'discountCode' => $discountCode,
             'percentage' => ['required', 'integer', 'min:1', 'max:100'],
             'minSpend' => ['required', 'integer', 'min:0', 'max:9999'],
             'cap' => ['required', 'integer', 'min:1' ,'max:999'],
@@ -38,18 +40,45 @@ class DiscountController extends Controller
             'endDate' => ['required', 'after:startDate'],
             'description' => ['max:1000'],
         ]);
-
-        Discount::create(array_merge(
-            $data, ['discountCode' => strtoupper($data['discountCode'])]
-        ));
-        return redirect()->route('discount')->with('success', 
-                "Discount code '{$data['discountCode']}' created successfully.");
+        return $data;
     }
 
-    public function specificDiscount() {
+    public function store(Request $request) {
         if (auth()->user()->role != 'admin')
             abort(403, 'This route is only meant for restaurant admins.');
+        
+        $data = $this->validateDiscount($request, '');
+        $discount = Discount::create(array_merge(
+            $data, ['discountCode' => strtoupper($data['discountCode'])]
+        ));
+
+        return redirect()->route('discount')->with('success', 
+                "Discount code '{$discount->discountCode}' created successfully.");
+    }
+
+    public function specificDiscount(Discount $discount) {
+        if (auth()->user()->role != 'admin')
+            abort(403, 'This route is only meant for restaurant admins.');
+        
         // Prolly a form thats prefilled with ori detail - suggestion oni
         // for staff to view / edit / delete the specific discount voucher
+        return view('editDiscount', compact('discount'));
+    }
+
+    public function update(Request $request, Discount $discount) {
+        $data = $this->validateDiscount($request, 'update');
+        $discount->update(array_merge(
+            $data, ['discountCode' => strtoupper($data['discountCode'])]
+        ));
+        
+        return redirect()->route('discount')->with('success', 
+                "Discount code '{$discount->discountCode}' updated successfully.");
+    }
+
+    public function destroy(Discount $discount) {
+        $discountCode = $discount->discountCode;
+        $discount->delete();
+        return redirect()->route('discount')->with('success', 
+                "Discount code '{$discountCode}' deleted successfully.");
     }
 }
