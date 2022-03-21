@@ -33,7 +33,11 @@ class Order extends Model
 
     public function getDiscount($subtotal) {
         // change the percentage according to discount code
-        return $this->currencyFormat($subtotal * 0.1);
+        if ($this->transaction != null && $this->transaction()->discount!= null)
+            $discount = $this->transaction()->discount()->percentage;
+        else
+            $discount = 0;
+        return $this->currencyFormat($subtotal * $discount);
     }
 
     public function getTax($subtotal, $discount) {
