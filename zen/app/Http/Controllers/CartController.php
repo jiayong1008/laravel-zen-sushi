@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
+use App\Models\Discount;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class CartController extends Controller
 {
@@ -66,22 +68,46 @@ class CartController extends Controller
             
         $data = $this->validate($request, [
             'type' => ['required'], // order type (dineIn / takeAway)
-            'dateTime' => ['required'], // order date time (when the user wants to be served.)
+            'dateTime' => ['required', 'after_or_equal:today'], // order date time (when the user wants to be served.)
         ]);
 
         $subtotal = 0;
         $cartItems = auth()->user()->cartItems->where('order_id', null);
-        foreach($cartItems as $item)
-        {
+        foreach($cartItems as $item) {
             $subtotal = $subtotal + ($item->menu->price * $item->quantity);
         }
 
-        // DISCOUNT CODE VALIDATION LOGICS PLACE HERE
+        $total = $subtotal;
+        $discountID = -1;
 
+        // Verify discount code
+        if ($request->discountCode != "" and $request->discountCode != null) {
+            $discountCode = strtoupper($request->discountCode);
+            $usableDiscountCode = Discount::where("discountCode", $discountCode)->first();
+
+            // Discount validation ^ up 2 line i add one, here u sendiri change la lol
+            $usableDiscountCodes = Discount::whereDate("startDate","<=",Carbon::today())->whereDate("endDate",">=",Carbon::today())->get();
+            foreach($usableDiscountCodes as $usableDiscountCode) {
+                if ($usableDiscountCode->discountCode == $discountCode) {
+                    if ($usableDiscountCode->minSpend > $subtotal) {
+                        return redirect()
+                            ->route('cart')
+                            ->with('error', "You need to spend at least RM ".$usableDiscountCode->minSpend." in order to use this discount code.");
+                    }
+                    $discountAmount = $subtotal * $usableDiscountCode->percentage;
+                    if ($discountAmount > $usableDiscountCode->cap) {
+                        $discountAmount = $usableDiscountCode->cap;
+                    }
+                    $total = $subtotal - $discountAmount;
+                    $discountID = $usableDiscountCode->id;
+                    break;
+                }
+            }
+        }
         // Create order
         $order = auth()->user()->orders()->create($data);
         
         // subtotal for now, it will be 'total' after discounting.
-        return redirect()->route('processTransaction', ['transactionAmount' => $subtotal, 'orderId' => $order->id]); 
+        return redirect()->route('processTransaction', ['transactionAmount' => $total, 'orderId' => $order->id, 'discountID' => $discountID]); 
     }
 }

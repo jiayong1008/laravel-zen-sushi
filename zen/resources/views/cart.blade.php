@@ -18,18 +18,22 @@
 <section class="cart" style="margin-top: 20vh;">
     <div class="container">
         <h2 class="d-flex justify-content-center">CART</h2>
-        @if (session('success'))
-            {{ session('success') }}
-        @elseif (session('error'))
-            {{ session('error') }}
-        @endif
-        
         @if ($cartItems->count())
 
             <div class="container py-5">
                 <div class="card col-md-6 col-12 offset-md-3">
                     <div class="card-body">
-                        <h4 class="card-title mb-5">Zen Sushi Wishlist <span class="text-secondary h5">- {{ $cartItems->count() }} Items</span></h4>
+                        <h4 class="card-title mb-5 mx-2">Zen Sushi Wishlist <span class="text-secondary h5">- {{ $cartItems->count() }} Items</span></h4>
+                        @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                        @elseif (session('error'))
+                        <div class="alert alert-warning" role="alert">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+
                         @foreach ($cartItems as $item)
                             <div class="w-100 px-3 d-flex align-items-center py-3">
                                 <div class="col-2">
@@ -71,8 +75,22 @@
                                 <h5 class="text-secondary">Discount Code</h5>
                                 <input type="text" class="form-control mt-3" name="discountCode" id="discountCode" placeholder="Place your discount code here...">
                             </div>
-                            <h5 class="text-secondary mt-5 text-center">Order Type</h5>
+
+                            <h5 class="text-secondary mt-5 text-center">Order Date and Time</h5>
+                            <div class="d-flex flex-column mt-4 px-3">
+                                <!-- Select Date time (only applicable for dine in / take away, not dine in now) -->
+                                <!-- Perform validation to ensure they don't select time that has passed -->
+                                <input class="form-control @error('dateTime') is-invalid @enderror" 
+                                name="dateTime" type="datetime-local" value="{{ old('dateTime') }}" required>
+                                @error('dateTime')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
                             <!-- Dine in / dine in now / take away ==> radio -->
+                            <h5 class="text-secondary mt-5 text-center">Order Type</h5>
                             <div class="d-flex justify-content-center mt-4">
                                 <div class="form-check form-check-inline">
                                     <input value="dineIn" class="form-check-input @error('type') is-invalid @enderror h5" type="radio" name="type" id="dineInRadio">
@@ -92,19 +110,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <h5 class="text-secondary mt-5 text-center">Order Date and Time</h5>
-                            <div class="d-flex justify-content-center mt-4">
-                                <!-- Select Date time (only applicable for dine in / take away, not dine in now) -->
-                                <!-- Perform validation to ensure they don't select time that has passed -->
-                                <input type="datetime-local" name="dateTime" value="{{ old('dateTime') }}" required>
-                                @error('dateTime')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <!-- perhaps add a confirmation during checkout process - like a popup or smtg -->
+                                                        <!-- perhaps add a confirmation during checkout process - like a popup or smtg -->
                             <button type="submit" class="primary-btn mt-5 w-100">Checkout</button>
                         </form>
                         <!-- CHECKOUT END -->

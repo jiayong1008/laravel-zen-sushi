@@ -22,12 +22,12 @@ class PayPalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function processTransaction(Request $request, float $transactionAmount, int $orderId)
+    public function processTransaction(Request $request, float $transactionAmount, int $orderId, int $discountID)
     {
 
         if ($transactionAmount < 0)
         {
-            return redirect()->route('createTransaction')->with('error', 'Something went wrong.');
+            return redirect()->route('cart')->with('error', 'Something went wrong.');
         }
 
         $provider = new PayPalClient;
@@ -37,7 +37,7 @@ class PayPalController extends Controller
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('successTransaction', $orderId),
+                "return_url" => route('successTransaction', [$transactionAmount, $orderId, $discountID]),
                 "cancel_url" => route('cancelTransaction', $orderId),
             ],
             "purchase_units" => [
@@ -82,7 +82,7 @@ class PayPalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function successTransaction(Request $request, int $orderId)
+    public function successTransaction(Request $request, float $transactionAmount, int $orderId, int $discountID)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
@@ -96,6 +96,14 @@ class PayPalController extends Controller
             foreach($carts as $cart) {
                 $cart->order_id = $orderId;
                 $cart->save();
+            }
+
+            // Create Transaction object
+            $order = Order::where('id',$orderId)->first();
+            if ($discountID == -1) {
+                $order->transaction()->create(['final_amount'=>$transactionAmount]);
+            } else {
+                $order->transaction()->create(['discountID'=>$discountID, 'final_amount'=>$transactionAmount]);
             }
 
             return redirect()

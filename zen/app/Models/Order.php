@@ -33,7 +33,7 @@ class Order extends Model
 
     public function getDiscount($subtotal) {
         // change the percentage according to discount code
-        if ($this->transaction != null && $this->transaction()->discount!= null)
+        if ($this->transaction != null && $this->transaction->discount!= null)
             $discount = $this->transaction()->discount()->percentage;
         else
             $discount = 0;

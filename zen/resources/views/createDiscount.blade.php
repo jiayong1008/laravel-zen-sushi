@@ -70,7 +70,7 @@
             <input type="date" class="form-control @error('cap') is-invalid @enderror" 
                 name="startDate" value="{{ old('startDate') }}">
             @error('startDate')
-                <span class="invalid-feedback"  style="display:block" role="alert">
+                <span class="invalid-feedback" style="display:block" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
