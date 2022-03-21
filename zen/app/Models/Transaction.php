@@ -9,6 +9,10 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'final_amount',
+    ];
+
     public function discount() {
         return $this->belongsTo(Discount::class);
     }
