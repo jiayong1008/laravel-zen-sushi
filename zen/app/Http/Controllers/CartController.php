@@ -85,25 +85,37 @@ class CartController extends Controller
             $discountCode = strtoupper($request->discountCode);
             $usableDiscountCode = Discount::where("discountCode", $discountCode)->first();
 
-            // Discount validation ^ up 2 line i add one, here u sendiri change la lol
-            $usableDiscountCodes = Discount::whereDate("startDate","<=",Carbon::today())->whereDate("endDate",">=",Carbon::today())->get();
-            foreach($usableDiscountCodes as $usableDiscountCode) {
-                if ($usableDiscountCode->discountCode == $discountCode) {
+            // If discount code exists
+            if ($usableDiscountCode) {
+                // If Available for use
+                if (($usableDiscountCode->startDate <= Carbon::today()) and (($usableDiscountCode->endDate >= Carbon::today()))) {
+                    // If the spending is less than minimum spend of the discount code, give error
                     if ($usableDiscountCode->minSpend > $subtotal) {
                         return redirect()
                             ->route('cart')
                             ->with('error', "You need to spend at least RM ".$usableDiscountCode->minSpend." in order to use this discount code.");
                     }
+
+                    // Everything is okay. The discount code can be used.
                     $discountAmount = $subtotal * $usableDiscountCode->percentage;
                     if ($discountAmount > $usableDiscountCode->cap) {
                         $discountAmount = $usableDiscountCode->cap;
                     }
                     $total = $subtotal - $discountAmount;
                     $discountID = $usableDiscountCode->id;
-                    break;
+                    
+                } else {
+                    return redirect()
+                        ->route('cart')
+                        ->with('error', "The discount code is unusable currently.");
                 }
+            } else {
+                return redirect()
+                    ->route('cart')
+                    ->with('error', "The discount code doesn't exist.");
             }
         }
+
         // Create order
         $order = auth()->user()->orders()->create($data);
         
