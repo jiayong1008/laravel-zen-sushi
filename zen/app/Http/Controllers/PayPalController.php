@@ -27,7 +27,10 @@ class PayPalController extends Controller
 
         if ($transactionAmount < 0)
         {
-            return redirect()->route('cart')->with('error', 'Something went wrong.');
+            // Transaction failed, delete the created order.
+            $order = Order::where('id',$orderId)->first()->delete();
+
+            return redirect()->route('cart')->with('error', 'Transaction amount must be more than RM 0.');
         }
 
         $provider = new PayPalClient;
@@ -116,7 +119,7 @@ class PayPalController extends Controller
 
             return redirect()
                 ->route('cart')
-                ->with('error', $response['message'] ?? 'Something went wrong.');
+                ->with('error', 'Something went wrong.');
         }
     }
 
@@ -133,6 +136,6 @@ class PayPalController extends Controller
 
         return redirect()
             ->route('cart')
-            ->with('error', $response['message'] ?? 'You have canceled the transaction.');
+            ->with('error', 'You have canceled the transaction.');
     }
 }
