@@ -18,21 +18,21 @@
 <section class="cart" style="margin-top: 20vh;">
     <div class="container">
         <h2 class="d-flex justify-content-center">CART</h2>
+        @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+        @elseif (session('error'))
+        <div class="alert alert-warning" role="alert">
+            {{ session('error') }}
+        </div>
+        @endif
         @if ($cartItems->count())
 
             <div class="container py-5">
                 <div class="card col-md-6 col-12 offset-md-3">
                     <div class="card-body">
                         <h4 class="card-title mb-5 mx-2">Zen Sushi Wishlist <span class="text-secondary h5">- {{ $cartItems->count() }} Items</span></h4>
-                        @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                        @elseif (session('error'))
-                        <div class="alert alert-warning" role="alert">
-                            {{ session('error') }}
-                        </div>
-                        @endif
 
                         @foreach ($cartItems as $item)
                             <div class="w-100 px-3 d-flex align-items-center py-3">

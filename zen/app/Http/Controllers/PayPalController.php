@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Models\Order;
+use App\Models\Discount;
 
 class PayPalController extends Controller
 {
@@ -103,10 +104,11 @@ class PayPalController extends Controller
 
             // Create Transaction object
             $order = Order::where('id',$orderId)->first();
-            if ($discountID == -1) {
-                $order->transaction()->create(['final_amount'=>$transactionAmount]);
-            } else {
-                $order->transaction()->create(['discountID'=>$discountID, 'final_amount'=>$transactionAmount]);
+            $order->transaction()->create(['final_amount'=>$transactionAmount]);
+            if ($discountID != -1) {
+                $discount = Discount::where("id", $discountID)->first();
+                $order->transaction->discount()->associate($discount);
+                $order->transaction->save();
             }
 
             return redirect()

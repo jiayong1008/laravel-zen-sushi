@@ -14,6 +14,10 @@ class CartController extends Controller
         $this->middleware('auth');
     }
 
+    public function currencyFormat($number) {
+        return number_format((float)$number, 2, '.', '');
+    }
+
     // User requests to view their cart
     public function index() {
         if (auth()->user()->role != 'customer')
@@ -117,7 +121,7 @@ class CartController extends Controller
         }
 
         // add tax of 6% to total amount
-        $total = $total * 1.06;
+        $total = $this->currencyFormat($total * 1.06);
 
         // Create order
         $order = auth()->user()->orders()->create($data);

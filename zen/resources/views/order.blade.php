@@ -96,11 +96,7 @@
                     <p>RM {{ $subtotal = $activeOrder->getSubtotal() }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
-                    @if ($activeOrder->transaction != null && $activeOrder->transaction->discount != null)
-                    <h6>Discount ({{ $activeOrder->transaction->discount }}%)</h6>
-                    @else
                     <h6>Discount</h6>
-                    @endif
                     <p>-RM {{ $discount = $activeOrder->getDiscount($subtotal) }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
