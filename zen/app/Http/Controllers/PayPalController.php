@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Models\Order;
+use App\Models\Discount;
 
 class PayPalController extends Controller
 {
@@ -22,12 +23,15 @@ class PayPalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function processTransaction(Request $request, float $transactionAmount, int $orderId)
+    public function processTransaction(Request $request, float $transactionAmount, int $orderId, int $discountID)
     {
 
         if ($transactionAmount < 0)
         {
-            return redirect()->route('createTransaction')->with('error', 'Something went wrong.');
+            // Transaction failed, delete the created order.
+            $order = Order::where('id',$orderId)->first()->delete();
+
+            return redirect()->route('cart')->with('error', 'Transaction amount must be more than RM 0.');
         }
 
         $provider = new PayPalClient;
@@ -37,7 +41,7 @@ class PayPalController extends Controller
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('successTransaction', $orderId),
+                "return_url" => route('successTransaction', [$transactionAmount, $orderId, $discountID]),
                 "cancel_url" => route('cancelTransaction', $orderId),
             ],
             "purchase_units" => [
@@ -82,7 +86,7 @@ class PayPalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function successTransaction(Request $request, int $orderId)
+    public function successTransaction(Request $request, float $transactionAmount, int $orderId, int $discountID)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
@@ -98,6 +102,15 @@ class PayPalController extends Controller
                 $cart->save();
             }
 
+            // Create Transaction object
+            $order = Order::where('id',$orderId)->first();
+            $order->transaction()->create(['final_amount'=>$transactionAmount]);
+            if ($discountID != -1) {
+                $discount = Discount::where("id", $discountID)->first();
+                $order->transaction->discount()->associate($discount);
+                $order->transaction->save();
+            }
+
             return redirect()
                 ->route('cart')
                 ->with('success', 'Transaction complete.');
@@ -108,7 +121,7 @@ class PayPalController extends Controller
 
             return redirect()
                 ->route('cart')
-                ->with('error', $response['message'] ?? 'Something went wrong.');
+                ->with('error', 'Something went wrong.');
         }
     }
 
@@ -125,6 +138,6 @@ class PayPalController extends Controller
 
         return redirect()
             ->route('cart')
-            ->with('error', $response['message'] ?? 'You have canceled the transaction.');
+            ->with('error', 'You have canceled the transaction.');
     }
 }

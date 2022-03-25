@@ -33,7 +33,16 @@ class Order extends Model
 
     public function getDiscount($subtotal) {
         // change the percentage according to discount code
-        return $this->currencyFormat($subtotal * 0.1);
+        if ($this->transaction != null && $this->transaction->discount!= null) {
+            $discount = $this->transaction->discount->percentage;
+            if (($subtotal * $discount/100) < ($this->transaction->discount->cap)) {
+                return $this->currencyFormat($subtotal * $discount/100);
+            } else {
+                return $this->transaction->discount->cap;
+            }
+        } else {
+            return 0;
+        }
     }
 
     public function getTax($subtotal, $discount) {
@@ -55,11 +64,16 @@ class Order extends Model
         return number_format((float)$number, 2, '.', '');
     }
   
+    // RELATIONSHIPS
     public function user() {
         return $this->belongsTo(User::class);
     }
 
     public function cartItems() {
         return $this->hasMany(CartItem::class);
+    }
+
+    public function transaction() {
+        return $this->hasOne(Transaction::class);
     }
 }
