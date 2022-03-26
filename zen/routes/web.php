@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\AccountCreationController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\DashboardController;
 
 require __DIR__.'/auth.php';
 /*
@@ -59,6 +60,4 @@ Route::get('/success-transaction/{transactionAmount}/{orderId}/{discountID}', [P
 Route::get('/cancel-transaction/{orderId}', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 
 // Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

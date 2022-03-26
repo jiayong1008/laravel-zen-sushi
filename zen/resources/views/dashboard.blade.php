@@ -1,17 +1,54 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.backend')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
-            </div>
+@section('links')
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+@endsection
+
+@section('bodyID')
+{{ 'Dashboard' }}@endsection
+
+@section('navTheme')
+{{ 'light' }}@endsection
+
+@section('logoFileName')
+{{ URL::asset('/images/Black Logo.png') }}@endsection
+
+
+@section('content')
+
+<!-- todo - session success stuff -->
+<section class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <h1>Dashboard</h1>
         </div>
     </div>
-</x-app-layout>
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-3 col-6 my-4 mx-2 p-2 bg-white">
+            <h5>Generated Revenue</h5>
+            <h2 class="my-4">RM 10826.59</h2>
+            <p class="small text-muted">sales generated from the system</p>
+        </div>
+        <div class="col-md-3 col-6 my-4 mx-2 p-2 bg-white">
+            <h5>Estimated Cost</h5>
+            <h2 class="my-4">RM 3445.89</h2>
+            <p class="small text-muted">estimated cost of materials and ingredient</p>
+        </div>
+        <div class="col-md-3 col-6 my-4 mx-2 p-2 bg-white">
+            <h5>Gross Profit</h5>
+            <h2 class="my-4">RM 7380.70</h2>
+            <p class="small text-muted">difference of revenue and cost</p>
+        </div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-5 col-12 mb-4 mx-2 p-2 bg-white">
+            <h5>Bar + line chart</h5>
+        </div>
+        <div class="col-md-5 col-12 mb-4 mx-2 p-2 bg-white">
+            <h5>Pie chart</h5>
+        </div>
+    </div>
+</section>
+
+
+@endsection
