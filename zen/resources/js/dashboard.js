@@ -3,14 +3,17 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const dailyRevenue = JSON.parse(document.querySelector('#generated-revenue').dataset.daily);
-  const generatedRevenue = parseFloat(document.querySelector('#generated-revenue').dataset.total);
+  const totalRevenue = parseFloat(document.querySelector('#generated-revenue').dataset.total);
+  const dailyOrders = JSON.parse(document.querySelector('#order-revenue-chart').dataset.daily);
+  // const totalOrders = parseInt(document.querySelector('#order-revenue-chart').dataset.total);
+  // dailyOrders.map(order => console.log(order.date, order.orders));
 
   Apex.grid = {
     padding: { right: 0, left: 0 }
   }
   Apex.dataLabels = { enabled: false }
   
-  // Chart variables
+  // Chart 1 - Revenue Area Chart
   var revenue = {
     chart: {
       id: 'sparkline1',
@@ -30,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     xaxis: { type: 'datetime' },
     colors: ['#DCE6EC'],
     title: {
-      text: `RM${generatedRevenue}`,
+      text: `RM${totalRevenue}`,
       offsetX: 30,
       style: { fontSize: '24px', cssClass: 'apexcharts-yaxis-title' }
     },
@@ -41,6 +44,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
+  // Chart 7 - Order-Revenue Mixed bar line chart
+  var orderRevenue = {
+    series: [{
+    name: 'Orders',
+    type: 'column',
+    data: dailyOrders.map(record => record.orders),
+  }, {
+    name: 'Revenue',
+    type: 'line',
+    data: dailyRevenue.map(record => record.revenue.toFixed(2)),
+  }],
+    chart: {
+    height: 350,
+    type: 'line',
+  },
+  stroke: {
+    width: [0, 4]
+  },
+  title: {
+    text: 'Orders and Revenue',
+    style: { fontSize: '18px', cssClass: 'apexcharts-yaxis-title' }
+  },
+  dataLabels: {
+    enabled: false,
+    enabledOnSeries: [1]
+  },
+  labels: dailyOrders.map(record => record.date),
+  xaxis: {
+    type: 'datetime'
+  },
+  yaxis: [{
+    title: {
+      text: 'Orders',
+      style: { fontSize: '14px', cssClass: 'apexcharts-yaxis-title' }
+    },
+  
+  }, {
+    opposite: true,
+    title: {
+      text: 'Revenue',
+      style: { fontSize: '14px', cssClass: 'apexcharts-yaxis-title' }
+    }
+  }]
+  };
+
   // Render charts
   new ApexCharts(document.querySelector("#generated-revenue"), revenue).render();
+  new ApexCharts(document.querySelector("#order-revenue-chart"), orderRevenue).render();
 })

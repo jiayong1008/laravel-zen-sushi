@@ -23,13 +23,22 @@
         <div class="col mt-lg-0 mt-5">
             <h1 class="mt-lg-0 mt-3">Dashboard</h1>
         </div>
+        <div class="col-lg-5 col-12 d-flex justify-content-center mt-lg-0 mt-5">
+            <div class="col-11 flex-center py-2 shadow rounded bg-white">
+            <div class="flex-center">
+            <img src="{{ URL::asset('/images/calendar.svg') }}" style="height: 32px; width: 32px;">
+            </div>
+            <p class="flex-center mt-lg-0 px-3">From: {{ $startDate }}</p>
+            <p class="flex-center mt-lg-0 px-3">To: {{ $today }} </p>
+            </div>
+        </div>
     </div>
 
     <!-- first row -->
     <div class="row my-5 justify-content-between">
         <div class="col-lg-4 col-12 mb-lg-0 mb-3 flex-center">
             <div id="generated-revenue" class="col-11 pt-3 h-100 shadow rounded bg-white" 
-                    data-daily={{$dailyRevenue}} data-total="{{$generatedRevenue}}">
+                    data-daily="{{ $dailyRevenue }}" data-total="{{ $totalRevenue }}">
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-lg-0 mb-3 flex-center">
@@ -53,41 +62,56 @@
     <!-- TODO - second row -->
     <div class="row mt-5 justify-content-center">
         <div class="col-lg-4 col-12 mb-lg-0 mb-3 flex-center">
-            <div id="orders" class="col-11 pt-3 h-100 shadow rounded bg-white"> 
-                <h5>Total Orders</h5>
-                <h2 class="my-4">{{ $totalOrder }}</h2>
-                <p class="small text-muted">number of orders being placed by now</p>
+            <div id="orders" class="col-11 p-3 h-100 shadow rounded bg-white"> 
+                <h5 class="text-center">Total Orders</h5>
+                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">{{ $totalOrders }}</h2>
+                <p class="small text-muted text-center">Number of orders being placed by now</p>
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-lg-0 mb-3 flex-center">
-            <div id="code-usage" class="col-11 pt-3 h-100 shadow rounded bg-white">     
-                <h5>Discount Code Usage</h5>
-                <h2 class="my-4">{{ $discountCodeUsed }} times</h2>
-                <p class="small text-muted">discount code usage analysis</p>
+            <div id="code-usage" class="col-11 p-3 h-100 shadow rounded bg-white">     
+                <h5 class="text-center">Discount Code Usage</h5>
+                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">{{ $discountCodeUsed }} times</h2>
+                <p class="small text-muted text-center">Discount code usage analysis</p>
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-lg-0 mb-3 flex-center">
-            <div id="customers" class="col-11 pt-3 h-100 shadow rounded bg-white">    
-                <h5>Total Customers</h5>
-                <h2 class="my-4">{{ $numCustomer }}</h2>
-                <p class="small text-muted">customer base of the system</p>
+            <div id="customers" class="col-11 p-3 h-100 shadow rounded bg-white">    
+                <h5 class="text-center">Total Customers</h5>
+                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">{{ $numCustomer }}</h2>
+                <p class="small text-muted text-center">Customer base of the system</p>
             </div>
         </div>
     </div>
 
     <!-- TODO - third row - charts -->
-    <div class="row my-5 justify-content-between">
+    <!-- <div class="row my-5 justify-content-between">
         <div class="col-lg-6 col-12 mb-lg-0 mb-3 flex-center">
-            <div class="col-11 pt-3 h-100 shadow rounded bg-white">
-                <!-- bar: total orders, line: revenue -->
-                <h5>Bar + line chart</h5>
+            <div id="order-revenue-chart" class="col-11 pt-3 h-100 shadow rounded bg-white"
+                data-daily="{{ $dailyOrders }}" data-total="{{ $totalOrders }}">
             </div>
         </div>
         <div class="col-lg-6 col-12 mb-lg-0 mb-3 flex-center">
             <div class="col-11 pt-3 h-100 shadow rounded bg-white">
-                <!-- sales of each menu category -->
+                sales of each menu category
                 <h5>Pie chart</h5>
             </div>
+        </div>
+    </div> -->
+
+    <!-- Third row - Order-Revenue Mixed Chart -->
+    <div class="row my-5 justify-content-between">
+        <div id="order-revenue-chart" class="col-12 pt-3 h-100 shadow rounded bg-white"
+            data-daily="{{ $dailyOrders }}" data-total="{{ $totalOrders }}">
+        </div>
+    </div>
+
+    <!-- Forth row - Menu Category Pie Chart -->
+    <div class="row my-5 justify-content-between">
+        <div id="menu-pie-chart" class="col-12 pt-3 h-100 shadow rounded bg-white"
+            data-daily="" data-total="">
+            <!-- sales of each menu category -->
+            <h5>Pie chart</h5>
         </div>
     </div>
 </section>
