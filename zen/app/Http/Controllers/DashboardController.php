@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
+use DateInterval;
+use DatePeriod;
+use DateTime;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -18,10 +22,34 @@ class DashboardController extends Controller
         if (auth()->user()->role != 'admin')
             abort(403, 'This route is only meant for admin.');
 
-        // calculate revenue
-        $generatedRevenue = Transaction::sum("final_amount");
+        // General variables useful for all charts / graphs
+        $lastMonthDate = Carbon::now()->subDays(30)->toDateTimeString();
+        $today = Carbon::today()->toDateString();
+        $oneMonthTransactions = Transaction::where('created_at', '>=', $lastMonthDate)->get();
+        
+        // ================   Calculate revenue   ========================
+        $generatedRevenue = $oneMonthTransactions->sum("final_amount");
+        $dailyRevenue = Transaction::select(
+            DB::raw('date(created_at) as date'), DB::raw('SUM(final_amount) as revenue'))
+            ->where('created_at', '>=', Carbon::now()->subDays(30)->toDateTimeString())
+            ->groupBy('date')->orderBy('date')->get();
+        $interval = DateInterval::createFromDateString('1 day');
+        $period = new DatePeriod(new DateTime($lastMonthDate), $interval, new DateTime($today));
 
-        // calculate cost and profit to be done later!
+        // $dailyRevenue will store date-revenue pair for the past 30 days
+        foreach ($period as $date) {
+            $date = $date->format('Y-m-d');
+            // if this date is not in daily revenue, set dailyRevenue of that day to 0
+            if (!$dailyRevenue->contains('date', $date))
+                $dailyRevenue->push(array('date' => $date, 'revenue' => 0));
+        }
+        // Sort array by date
+        $dailyRevenue = $dailyRevenue->toArray();
+        $dates = array_column($dailyRevenue, 'date');
+        array_multisort($dates, $dailyRevenue);
+        $dailyRevenue = json_encode($dailyRevenue);
+
+        // TODO - calculate cost and profit to be done later!
 
         // calculate number of order being placed
         $totalOrder = Transaction::count();
@@ -32,6 +60,7 @@ class DashboardController extends Controller
         // calculate number of customer
         $numCustomer = User::where("role", "customer")->count();
         
-        return view('dashboard', compact("generatedRevenue", "discountCodeUsed", "totalOrder", "numCustomer")); 
+        return view('dashboard', compact("generatedRevenue", "dailyRevenue",
+                "discountCodeUsed", "totalOrder", "numCustomer")); 
     }
 }

@@ -22,12 +22,12 @@ class MenuFactory extends Factory
         ];
     }
 
-    public function getImage() {
+    private function getImage() {
         return "storage/{$this->faker->sentence(1)}png";
     }
 
-    public function getSize() {
-        $options = array('dineIn', 'takeAway');
+    private function getSize() {
+        $options = array('small', 'large');
         $rand = array_rand($options);
         return $options[$rand];
     }
