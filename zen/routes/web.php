@@ -28,7 +28,17 @@ Route::post('/account/create', [AccountCreationController::class, 'store'])->nam
 // Menu
 // pliz modify and make ur own controller, Im juz implementing 
 // dis to get my 'cart' route working - JY
-Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+Route::get('/menu/filter?menuType=', [MenuController::class, 'index'])->name('menu');
+Route::post('/menu/saveMenuItem', [MenuController::class, 'store'])->name('saveMenuItem');
+Route::get('/menu/delete/{id}', [MenuController::class, 'delete'])->name('deleteMenuItem');
+Route::get('/menu/editMenuDetails/{id}', [MenuController::class, 'showDetails'])->name('showMenuDetails');
+Route::get('/menu/editMenuImages/{id}', [MenuController::class, 'showImages'])->name('showMenuImages');
+Route::post('/menu/updateDetails', [MenuController::class, 'updateDetails'])->name('updateMenuDetails');
+Route::post('/menu/updateImages', [MenuController::class, 'updateImages'])->name('updateMenuImages');
+Route::get('/menu/filter', [MenuController::class, 'filter'])->name('filterMenu');
+
+// Discount
+Route::get('/discount', [DiscountController::class, 'index'])->name('discount');
 
 // Cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart');

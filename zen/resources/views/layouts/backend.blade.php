@@ -39,6 +39,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ route('discount') }}">Discount</a></li>
                 <li><a href="{{ route('kitchenOrder') }}">Orders</a></li>
                 <li><a href="{{ route('menu') }}">Menu</a></li>
                 <li><a href="{{ route('accountCreation') }}">Account</a></li>
@@ -64,6 +65,8 @@
         </header>
         <ul>
             <li ><a href="dashboard.html" id="sidebar-dashboard"><i class="fa fa-th-large" aria-hidden="true"></i>Dashboard</a></li>
+            <br>
+            <li ><a href="discount.html" id="sidebar-discount"><i class="fa fa-ticket" aria-hidden="true"></i>Discount</a></li>
             <br>
             <li ><a href="{{ route('kitchenOrder') }}" id="sidebar-orders"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Orders</a></li>
             <br>
