@@ -1,6 +1,7 @@
 ## Progress
-1. Completed first chart
+1. Completed first chart and mixed chart
 2. Configured couple of factories to populate dummy data
+3. Made customized 403 and 404 page
 
 ## Note on factories:
 Assuming all tables are empty except for user table:

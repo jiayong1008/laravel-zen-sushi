@@ -8,6 +8,7 @@ use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\AccountCreationController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 
 require __DIR__.'/auth.php';
 /*
@@ -21,7 +22,7 @@ require __DIR__.'/auth.php';
 |
 */
 
-Route::get('/', function () { return view('home'); } )->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Account Creation
 Route::get('/account/create', [AccountCreationController::class, 'create'])->name('accountCreation');
