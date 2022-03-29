@@ -1,4 +1,8 @@
 <?php
+// Programmer 1: Mr. Tan Wei Kang, Developer
+// Programmer 2: Ms. Lim Jia Yong, Project Manager
+// Description: Manage cart (Customers can view, add to cart, update cart quantity, delete from cart)
+// Edited on: 20 March 2022
 
 namespace App\Http\Controllers;
 

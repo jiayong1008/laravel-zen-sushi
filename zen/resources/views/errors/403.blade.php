@@ -1,4 +1,8 @@
-<!-- Custom 403 Page -->
+<!-- 
+Programmer Name: Ms. Lim Jia Yong, Project Manager
+Description: Custom 403 page for forbidden routes
+Edited on: 28 March 2022
+-->
 
 @extends('layouts.app')
 

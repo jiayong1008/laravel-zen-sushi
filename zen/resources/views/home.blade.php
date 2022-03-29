@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Ms. Lim Jia Yong, Project Manager
+    Description: Home / landing page for customers or unregistered user 
+    Edited on: 28 February 2022
+ -->
+
 @extends('layouts.app')
 
 @section('links')

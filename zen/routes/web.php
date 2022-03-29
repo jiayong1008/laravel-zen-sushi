@@ -1,4 +1,9 @@
 <?php
+// Programmer 1: Mr. Lai Pin Cheng, Developer
+// Programmer 2: Mr. Tan Wei Kang, Developer
+// Programmer 3: Ms. Lim Jia Yong, Project Manager
+// Description: Maps URL route to their specific controllers and methods
+// Edited on: 25 March 2022
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MenuController;

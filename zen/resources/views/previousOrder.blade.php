@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Ms. Lim Jia Yong, Project Manager
+    Description: Page where admins can view all previous customer orders 
+    Edited on: 28 February 2022
+ -->
+
 @extends('layouts.backend')
 
 @section('links')

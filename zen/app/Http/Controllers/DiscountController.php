@@ -1,4 +1,8 @@
 <?php
+// Programmer 1: Ms. Lim Jia Yong, Project Manager
+// Programmer 2: Mr. Tan Wei Kang, Developer
+// Description: Manage discount codes (create, read, update, delete)
+// Edited on: 28 March 2022
 
 namespace App\Http\Controllers;
 
@@ -60,8 +64,8 @@ class DiscountController extends Controller
         if (auth()->user()->role != 'admin')
             abort(403, 'This route is only meant for restaurant admins.');
         
-        // Prolly a form thats prefilled with ori detail - suggestion oni
-        // for staff to view / edit / delete the specific discount voucher
+        // Render a form thats prefilled with original details
+        // For staffs to view / edit / delete the specific discount voucher
         return view('editDiscount', compact('discount'));
     }
 

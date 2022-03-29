@@ -1,6 +1,10 @@
 <?php
+// Programmer Name: Ms. Lim Jia Yong, Project Manager
+// Description: Direct admin to dashboard page, and other users to home page
+// Edited on: 28 March 2022
 
 namespace App\Http\Controllers;
+
 
 use Illuminate\Support\Facades\Auth;
 

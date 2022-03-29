@@ -1,6 +1,11 @@
+/* 
+    Programmer 1: Mr. Tan Wei Kang, Developer
+    Programmer 2: Ms. Lim Jia Yong, Project Manager
+    Description: Renders all charts and graphs with data queried from database
+    Edited on: 29 March 2022
+*/
+
 // https://apexcharts.com/javascript-chart-demos/dashboards/modern/
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const dailyRevenue = JSON.parse(document.querySelector('#generated-revenue').dataset.daily);
   const totalRevenue = parseFloat(document.querySelector('#generated-revenue').dataset.total);

@@ -1,4 +1,8 @@
-<!-- Custom 404 Page -->
+<!-- 
+Programmer Name: Ms. Lim Jia Yong, Project Manager
+Description: Custom 404 page for non-existing routes
+Edited on: 28 March 2022
+-->
 
 @extends('layouts.app')
 
