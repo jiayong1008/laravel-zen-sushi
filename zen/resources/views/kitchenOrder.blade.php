@@ -153,8 +153,9 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="mt-5 d-flex justify-content-center">
+        <div class="mt-5 d-flex justify-content-between">
             <a href="{{ route('previousOrder') }}" class="primary-btn">Previous Orders</a>
+            {{ $activeOrders->links() }}
         </div>
     </div>
 </section>

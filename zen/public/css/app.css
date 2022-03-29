@@ -11286,11 +11286,13 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-/* @import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities'; */
+/* 
+    Programmer Name: Ms. Lim Jia Yong, Project Manager
+    Description: Basic frontend stylings across all pages, responsiveness taken into consideration
+    Edited on: 29 March 2022
+*/
 
-/* https://stackoverflow.com/questions/45279612/including-a-css-file-in-a-blade-template */
+
 /* ====================
         GENERAL 
 ======================*/
@@ -11362,7 +11364,7 @@ button {
 /* ====================
         NAVBAR 
 ======================*/
-nav {
+nav.home-nav {
     position: fixed;
     top: 0;
     width: 100%;

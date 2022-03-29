@@ -20,13 +20,13 @@ class OrderController extends Controller
 
     public function index() { // Cust regular order page
         $activeOrder = auth()->user()->orders()->where('completed', 0)->orderBy('dateTime', 'desc')->first();
-        $allOrders = auth()->user()->orders()->orderBy('dateTime', 'desc')->get();
+        $allOrders = auth()->user()->orders()->orderBy('dateTime', 'desc')->paginate(8);
         return view('order', compact('activeOrder', 'allOrders'));
     }
 
     public function show(Order $order) { // Customer specific order page
         $activeOrder = $order;
-        $allOrders = auth()->user()->orders()->orderBy('dateTime', 'desc')->get();
+        $allOrders = auth()->user()->orders()->orderBy('dateTime', 'desc')->paginate(8);
         return view('order', compact('activeOrder', 'allOrders'));
     }
 
@@ -34,7 +34,7 @@ class OrderController extends Controller
         if (auth()->user()->role == 'customer')
             abort(403, 'This route is only meant for restaurant staffs.');
 
-        $activeOrders = Order::where('completed', 0)->orderBy('dateTime', 'desc')->get();
+        $activeOrders = Order::where('completed', 0)->orderBy('dateTime', 'desc')->paginate(8);
         $firstOrder = $activeOrders->first();
         return view('kitchenOrder', compact('firstOrder', 'activeOrders'));
     }
@@ -43,7 +43,7 @@ class OrderController extends Controller
         if (auth()->user()->role == 'customer')
             abort(403, 'This route is only meant for restaurant staffs.');
 
-        $activeOrders = Order::where('completed', 0)->orderBy('dateTime', 'desc')->get();
+        $activeOrders = Order::where('completed', 0)->orderBy('dateTime', 'desc')->paginate(8);
         $firstOrder = $order;
         return view('kitchenOrder', compact('firstOrder', 'activeOrders'));
     }
@@ -55,7 +55,7 @@ class OrderController extends Controller
         $orderItem->fulfilled = $orderItem->fulfilled ? false : true;
         $orderItem->save();
 
-        $cartItems = CartItem::where('order_id', $orderItem->order_id)->get();
+        $cartItems = CartItem::where('order_id', $orderItem->order_id)->paginate(8);
         foreach ($cartItems as $item) {
             if (!$item->fulfilled)
                 return redirect()->route('kitchenOrder');
@@ -71,7 +71,7 @@ class OrderController extends Controller
 
         // this is actually 'previousOrders' not 'activeOrders', but i name it this way 
         // just for the blade's variable naming sake
-        $previousOrders = Order::where('completed', 1)->orderBy('dateTime', 'desc')->get();
+        $previousOrders = Order::where('completed', 1)->orderBy('dateTime', 'desc')->paginate(8);
         return view('previousOrder', compact('previousOrders'));
     }
 }

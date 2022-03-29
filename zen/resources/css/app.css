@@ -1,7 +1,7 @@
 /* 
     Programmer Name: Ms. Lim Jia Yong, Project Manager
     Description: Basic frontend stylings across all pages, responsiveness taken into consideration
-    Edited on: 28 February 2022
+    Edited on: 29 March 2022
 */
 
 
@@ -76,7 +76,7 @@ button {
 /* ====================
         NAVBAR 
 ======================*/
-nav {
+nav.home-nav {
     position: fixed;
     top: 0;
     width: 100%;

@@ -8,7 +8,7 @@
 
 
 /* NAV */
-nav {
+nav.home-nav {
     display: none !important;
 }
 
@@ -83,7 +83,7 @@ nav .nav-links {
 Responsive Navigation
 ---------------------*/
 @media screen and (max-width: 990px) {
-    nav {
+    nav.home-nav {
         display: flex !important;
     }
 

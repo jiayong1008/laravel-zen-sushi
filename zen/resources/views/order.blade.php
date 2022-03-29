@@ -163,6 +163,11 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="row mt-md-4">
+            <div class="col-12 flex-center">
+                {{ $allOrders->links() }}
+            </div>
+        </div>
     </div>
 </section>
 @if(!$activeOrder)
