@@ -549,11 +549,18 @@ class ComposerStaticInit811b873181f4d6b076ff5357a81e9593
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\CartController' => __DIR__ . '/../..' . '/app/Http/Controllers/CartController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+<<<<<<< HEAD
         'App\\Http\\Controllers\\DiscountController' => __DIR__ . '/../..' . '/app/Http/Controllers/DiscountController.php',
+=======
+>>>>>>> f407b528db55df3d79ab290d4aef063ad76920bb
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\MenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/MenuController.php',
         'App\\Http\\Controllers\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderController.php',
         'App\\Http\\Controllers\\PayPalController' => __DIR__ . '/../..' . '/app/Http/Controllers/PayPalController.php',
+<<<<<<< HEAD
+=======
+        'App\\Http\\Controllers\\TestMenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/TestMenuController.php',
+>>>>>>> f407b528db55df3d79ab290d4aef063ad76920bb
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CustMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CustMiddleware.php',

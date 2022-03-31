@@ -15,11 +15,15 @@ class Menu extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'type',
         'name',
         'description',
         'price',
         'image',
         'size',
+        'allergic',
+        'vegetarian',
+        'vegan'
     ];
 
     public function cartItems() {

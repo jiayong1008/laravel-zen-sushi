@@ -10,7 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.10.2",
+        "@popperjs/core": "^2.11.4",
         "@tailwindcss/forms": "^0.4.1",
         "alpinejs": "^3.9.1",
         "autoprefixer": "^10.4.2",
