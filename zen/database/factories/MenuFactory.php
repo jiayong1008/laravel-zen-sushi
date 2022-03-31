@@ -1,4 +1,7 @@
 <?php
+// Programmer Name: Ms. Lim Jia Yong, Project Manager
+// Description: Creates dummy menu data, read README.md for more info
+// Edited on: 20 March 2022
 
 namespace Database\Factories;
 
@@ -22,12 +25,12 @@ class MenuFactory extends Factory
         ];
     }
 
-    public function getImage() {
+    private function getImage() {
         return "storage/{$this->faker->sentence(1)}png";
     }
 
-    public function getSize() {
-        $options = array('dineIn', 'takeAway');
+    private function getSize() {
+        $options = array('small', 'large');
         $rand = array_rand($options);
         return $options[$rand];
     }

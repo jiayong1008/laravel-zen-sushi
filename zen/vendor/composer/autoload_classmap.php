@@ -19,11 +19,18 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerifyEmailController' => $baseDir . '/app/Http/Controllers/Auth/VerifyEmailController.php',
     'App\\Http\\Controllers\\CartController' => $baseDir . '/app/Http/Controllers/CartController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+<<<<<<< HEAD
     'App\\Http\\Controllers\\DiscountController' => $baseDir . '/app/Http/Controllers/DiscountController.php',
+=======
+>>>>>>> f407b528db55df3d79ab290d4aef063ad76920bb
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\MenuController' => $baseDir . '/app/Http/Controllers/MenuController.php',
     'App\\Http\\Controllers\\OrderController' => $baseDir . '/app/Http/Controllers/OrderController.php',
     'App\\Http\\Controllers\\PayPalController' => $baseDir . '/app/Http/Controllers/PayPalController.php',
+<<<<<<< HEAD
+=======
+    'App\\Http\\Controllers\\TestMenuController' => $baseDir . '/app/Http/Controllers/TestMenuController.php',
+>>>>>>> f407b528db55df3d79ab290d4aef063ad76920bb
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CustMiddleware' => $baseDir . '/app/Http/Middleware/CustMiddleware.php',

@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Ms. Lim Jia Yong, Project Manager
+    Description: Page where admins can view all previous customer orders 
+    Edited on: 28 February 2022
+ -->
+
 @extends('layouts.backend')
 
 @section('links')
@@ -31,9 +37,9 @@
     </div>
 </section>
 @else
-<section class="kitchen-previous-orders min-vh-100 d-flex align-items-center">
-    <div class="container">
-        <h2 class="mb-4">Previous Orders</h2>
+<section class="kitchen-previous-orders min-vh-100 d-flex align-items-center mt-lg-0 mt-3">
+    <div class="container mt-lg-0 mt-5">
+        <h2 class="mt-5 mb-4">Previous Orders</h2>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -66,8 +72,11 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="mt-5 d-flex justify-content-center">
+        <div class="my-md-5 mt-4 mb-5 d-flex flex-md-row flex-column justify-content-md-between">
             <a href="{{ route('kitchenOrder') }}" class="primary-btn">Active Orders</a>
+            <div class="col-md-8 col-12 d-flex justify-content-md-end justify-content-center">
+            {{ $previousOrders->links() }}
+            </div>
         </div>
     </div>
 </section>

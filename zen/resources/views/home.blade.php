@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Ms. Lim Jia Yong, Project Manager
+    Description: Home / landing page for customers or unregistered user 
+    Edited on: 28 February 2022
+ -->
+
 @extends('layouts.app')
 
 @section('links')
@@ -79,7 +85,11 @@
                     <label for="message" class="form-label">Message</label>
                     <textarea class="form-control" id="message" style="height: 100px"></textarea>
                 </div>
-                <button type="submit" class="primary-btn msg-btn">Send Message</button>
+                <div class="w-100 flex-center">
+                <a href="mailto:zensushi.sdp@gmail.com" class="primary-btn msg-btn w-100 px-3 py-2 text-center rounded">
+                    Send Message
+                </a>
+                </div>
             </form>
         </div>
 

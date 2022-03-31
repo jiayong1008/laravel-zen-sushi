@@ -39,11 +39,15 @@
                 <h3 class="logo-name">{{ config('app.name') }}</h3>
             </a>
             <ul class="nav-links">
+            @if (auth()->user()->role == 'admin')
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ route('discount') }}">Discount</a></li>
                 <li><a href="{{ route('kitchenOrder') }}">Orders</a></li>
                 <li><a href="{{ route('menu') }}">Menu</a></li>
                 <li><a href="{{ route('discount') }}">Discount</a></li>
                 <li><a href="{{ route('accountCreation') }}">Account</a></li>
+            @endif
+                <li><a href="{{ route('kitchenOrder') }}">Orders</a></li>
                 <li>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
@@ -65,13 +69,19 @@
             <img id="logo" src="@yield('logoFileName')" alt="logo">
         </header>
         <ul>
-            <li ><a href="dashboard.html" id="sidebar-dashboard"><i class="fa fa-th-large" aria-hidden="true"></i>Dashboard</a></li>
+        @if (auth()->user()->role == 'admin')
+            <li ><a href="{{ route('dashboard') }}" id="sidebar-dashboard"><i class="fa fa-th-large" aria-hidden="true"></i>Dashboard</a></li>
             <br>
             <li ><a href="{{ route('kitchenOrder') }}" id="sidebar-orders"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Orders</a></li>
             <br>
             <li ><a href="{{ route('menu') }}" id="sidebar-menu"><i class="fa fa-book" aria-hidden="true"></i>Menu</a></li>
             <br>
+            <li ><a href="{{ route('discount') }}" id="sidebar-discount"><i class="fa fa-ticket" aria-hidden="true"></i>Discount</a></li>
+            <br>
             <li ><a href="{{ route('accountCreation') }}" id="sidebar-account"><i class="fa fa-user" aria-hidden="true"></i>Account</a></li>
+            <br>
+        @endif
+            <li ><a href="{{ route('kitchenOrder') }}" id="sidebar-orders"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Orders</a></li>
             <br>
             <li >
                 <a href="{{ route('logout') }}" id="sidebar-logout" onclick="event.preventDefault();

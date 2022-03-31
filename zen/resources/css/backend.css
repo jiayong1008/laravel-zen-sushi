@@ -8,7 +8,7 @@
 
 
 /* NAV */
-nav {
+nav.home-nav {
     display: none !important;
 }
 
@@ -52,6 +52,7 @@ nav .nav-links {
 }
 
 #sidebar-dashboard,
+#sidebar-discount,
 #sidebar-orders,
 #sidebar-menu,
 #sidebar-account,
@@ -80,7 +81,7 @@ nav .nav-links {
 Responsive Navigation
 ---------------------*/
 @media screen and (max-width: 990px) {
-    nav {
+    nav.home-nav {
         display: flex !important;
     }
 

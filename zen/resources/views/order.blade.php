@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Ms. Lim Jia Yong, Project Manager
+    Description: Page where customers can view their order(s) 
+    Edited on: 28 February 2022
+ -->
+
 @extends('layouts.app')
 
 @section('links')
@@ -157,6 +163,11 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="row mt-md-4">
+            <div class="col-12 flex-center">
+                {{ $allOrders->links() }}
+            </div>
+        </div>
     </div>
 </section>
 @if(!$activeOrder)

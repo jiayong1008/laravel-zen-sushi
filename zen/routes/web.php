@@ -1,4 +1,9 @@
 <?php
+// Programmer 1: Mr. Lai Pin Cheng, Developer
+// Programmer 2: Mr. Tan Wei Kang, Developer
+// Programmer 3: Ms. Lim Jia Yong, Project Manager
+// Description: Maps URL route to their specific controllers and methods
+// Edited on: 25 March 2022
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MenuController;
@@ -7,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\AccountCreationController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 
 require __DIR__.'/auth.php';
 /*
@@ -20,7 +27,7 @@ require __DIR__.'/auth.php';
 |
 */
 
-Route::get('/', function () { return view('home'); } )->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Account Creation
 Route::get('/account/create', [AccountCreationController::class, 'create'])->name('accountCreation');
@@ -29,7 +36,17 @@ Route::post('/account/create', [AccountCreationController::class, 'store'])->nam
 // Menu
 // pliz modify and make ur own controller, Im juz implementing 
 // dis to get my 'cart' route working - JY
-Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+Route::get('/menu/filter?menuType=', [MenuController::class, 'index'])->name('menu');
+Route::post('/menu/saveMenuItem', [MenuController::class, 'store'])->name('saveMenuItem');
+Route::get('/menu/delete/{id}', [MenuController::class, 'delete'])->name('deleteMenuItem');
+Route::get('/menu/editMenuDetails/{id}', [MenuController::class, 'showDetails'])->name('showMenuDetails');
+Route::get('/menu/editMenuImages/{id}', [MenuController::class, 'showImages'])->name('showMenuImages');
+Route::post('/menu/updateDetails', [MenuController::class, 'updateDetails'])->name('updateMenuDetails');
+Route::post('/menu/updateImages', [MenuController::class, 'updateImages'])->name('updateMenuImages');
+Route::get('/menu/filter', [MenuController::class, 'filter'])->name('filterMenu');
+
+// Discount
+Route::get('/discount', [DiscountController::class, 'index'])->name('discount');
 
 // Discount
 Route::get('/discount', [DiscountController::class, 'index'])->name('discount');
@@ -59,6 +76,4 @@ Route::get('/success-transaction/{transactionAmount}/{orderId}/{discountID}', [P
 Route::get('/cancel-transaction/{orderId}', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 
 // Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

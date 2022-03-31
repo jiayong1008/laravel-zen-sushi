@@ -1,4 +1,7 @@
 <?php
+// Programmer Name: Ms. Lim Jia Yong, Project Manager
+// Description: Defines relationship of menu table with other database tables
+// Edited on: 1 March 2022
 
 namespace App\Models;
 
@@ -12,11 +15,15 @@ class Menu extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'type',
         'name',
         'description',
         'price',
         'image',
         'size',
+        'allergic',
+        'vegetarian',
+        'vegan'
     ];
 
     public function cartItems() {

@@ -12,9 +12,11 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/dashboard.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .postCss('resources/css/app.css', 'public/css')
     .postCss('resources/css/home.css', 'public/css')
     .postCss('resources/css/backend.css', 'public/css')
     .postCss('resources/css/order.css', 'public/css')
+    .postCss('resources/css/menu.css', 'public/css')
     .sourceMaps();
