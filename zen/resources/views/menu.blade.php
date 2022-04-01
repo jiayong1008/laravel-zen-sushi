@@ -2,8 +2,6 @@
 
 @section('links')
 <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 @endsection
 
 @section('bodyID')
@@ -13,22 +11,26 @@
 {{ 'light' }}@endsection
 
 @section('logoFileName')
-{{ URL('http://127.0.0.1:8000/images/Black%20Logo.png') }}@endsection
+{{ URL::asset('/images/Black Logo.png') }}@endsection
 
 
 @section('content')
 <section class="menu" style="margin-top: 20vh;">
     <div class="container">
-        <a href={{"/menu/filter?menuType="}} class="menu-title"><h2 class="d-flex justify-content-center menu-title">MENU</h2></a>
+        <a href="{{ route('menu') }}" class="menu-title">
+            <h2 class="d-flex justify-content-center menu-title">MENU</h2>
+        </a>
         @if (session('success'))
             {{ session('success') }}
         @endif
 
         <div class="row menu-bar">
         @if (auth()->user()->role == 'admin')
-            <div class="col-md-1 text-start">
+            <div class="col-md-1 d-flex align-items-center">
                 <div class="dropstart">    
-                    <button type="button" class="btn btn-success" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" id="filter-button"><i class="fa fa-plus" aria-hidden="true"></i></i></button>
+                    <button type="button" class="btn btn-success" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" id="filter-button">
+                        <i class="fa fa-plus" aria-hidden="true"></i></i>
+                    </button>
                     <div class="dropdown-menu">    
                         <form method='post' action="{{ route('saveMenuItem') }}" enctype="multipart/form-data" class="px-4 py-3" style="min-width: 350px">
                             @csrf
@@ -147,7 +149,7 @@
          @endif
 
         
-            <div class="col-md-8 offset-md-1 text-center menu-type">
+            <div class="col-md-8 offset-md-1 col-12 text-center menu-type my-3">
                 <form method="get" action="{{ route('filterMenu') }}">
                     <button type="submit" name="menuType" value="" class="btn btn-light menu-type-button">All</button>
                     <button type="submit" name="menuType" value="Appetizer" class="btn btn-light menu-type-button">Appetizer</button>
@@ -160,8 +162,8 @@
                 </form>
             </div>
 
-            <div class="col-md-2 text-end filter">
-                <div class="dropstart">    
+            <div class="col-md-2 d-flex align-items-center">
+                <div class="dropstart w-100 d-flex justify-content-end">    
                     <button type="button" class="btn btn-dark" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" id="filter-button">Filter <i class="fa fa-filter" aria-hidden="true"></i></button>
                     <div class="dropdown-menu">
                         <form method="get" action="{{ route('filterMenu') }}" class="px-4 py-3 " style="min-width: 350px">    
@@ -245,7 +247,7 @@
         
 
 
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap mt-4 mb-5">
         @forelse ($menus as $menu)
             
             <div class="card col-md-3 col-sm-6">
@@ -257,12 +259,14 @@
                             {{ $menu->name }} 
                             @if (auth()->user()->role == 'admin')
                             <div class="dropdown">
-                                <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                                <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                                </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href={{"./editMenuImages/".$menu['id']}}>Edit Images</a></li>
-                                    <li><a class="dropdown-item" href={{"./editMenuDetails/".$menu['id']}}>Edit Details</a></li>
-                                    <li><a class="dropdown-item" href={{"./delete/".$menu['id']}}>Delete</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('showMenuImages', $menu.id) }}">Edit Images</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('showMenuDetails', $menu.id) }}">Edit Details</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('deleteMenuItem', $menu.id) }}">Delete</a></li>
                                 </ul>
                             </div>
                             @endif

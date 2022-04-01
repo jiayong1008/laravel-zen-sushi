@@ -36,7 +36,7 @@ class DashboardController extends Controller
         // $dailyRevenue will store date-revenue pair for the past 30 days
         $dailyRevenue = Transaction::select(
             DB::raw('date(created_at) as date'), DB::raw('SUM(final_amount) as revenue'))
-            ->where('created_at', '>=', Carbon::now()->subDays(30)->toDateTimeString())
+            ->where('created_at', '>=', $lastMonthDate)
             ->groupBy('date')->orderBy('date')->get();
         // =============   End of Calculate Revenue   =====================
 
@@ -46,7 +46,7 @@ class DashboardController extends Controller
         $totalOrders = $oneMonthTransactions->count();
         $dailyOrders = Order::select(
             DB::raw('date(dateTime) as date'), DB::raw('COUNT(*) as orders'))
-            ->where('created_at', '>=', Carbon::now()->subDays(30)->toDateTimeString())
+            ->where('created_at', '>=', $lastMonthDate)
             ->groupBy('date')->orderBy('date')->get();
         // =============   End of Total Orders   =====================
 
@@ -67,6 +67,7 @@ class DashboardController extends Controller
         $dailyOrders = $dailyOrders->toArray();
         $dates = array_column($dailyRevenue, 'date');
         array_multisort($dates, $dailyRevenue);
+        $dates = array_column($dailyOrders, 'date');
         array_multisort($dates, $dailyOrders);
         $dailyRevenue = json_encode($dailyRevenue);
         $dailyOrders = json_encode($dailyOrders);
