@@ -15,9 +15,9 @@
 
 
 @section('content')
-<section class="menu" style="margin-top: 20vh;">
+<section class="menu" style="margin-top: 17vh;">
     <div class="container">
-        <a href="{{ route('menu') }}" class="menu-title">
+        <a href={{"./filter?menuType="}} class="menu-title">
             <h2 class="d-flex justify-content-center menu-title">MENU</h2>
         </a>
         @if (session('success'))
@@ -250,47 +250,54 @@
         <div class="d-flex flex-wrap mt-4 mb-5">
         @forelse ($menus as $menu)
             
-            <div class="card col-md-3 col-sm-6">
+            <div class="card col-md-3 col-6 d-flex align-items-center">
                 <div class="card-body">
-                    <form action="{{ route('addToCart') }}" method="post">
+                    <form class="d-flex flex-column justify-content-between h-100" action="{{ route('addToCart') }}" method="post">
                         @csrf
-                        <img class="card-img-top menuImage" src="{{ asset('menuImages/' . $menu->image) }}">
-                        <h5 class="card-title">
+                        <div class="flex-center">
+                            <img class="card-img-top menuImage" src="{{ asset('menuImages/' . $menu->image) }}">
+                        </div>
+
+                        <h5 class="card-title mt-3">
                             {{ $menu->name }} 
-                            @if (auth()->user()->role == 'admin')
-                            <div class="dropdown">
-                                <a class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                        </h5>
+                        
+                        <h6 class="card-subtitle mb-2 text-muted">{{ $menu->description }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">For {{ $menu->size }} people</h6>
+                        
+                        <div class="d-flex justify-content-between">
+                            <p class="card-text fs-5 fw-bold">RM {{ number_format($menu->price, 2) }}</p>
+                            <h6 class="card-text flex-center">
+                                @if($menu->allergic)
+                                <i class="fa fa-exclamation-circle allergic-alert" aria-hidden="true" data-bs-toggle="tooltip" title="Allergic Warning"></i>
+                                @endif
+
+                                @if($menu->vegan)
+                                <i class="fa fa-tree" aria-hidden="true" data-bs-toggle="tooltip" title="Vegan Friendly"></i>
+                                @elseif($menu->vegetarian)
+                                <i class="fa fa-leaf" aria-hidden="true" data-bs-toggle="tooltip" title="Vegetarian Friendly"></i>
+                                @endif
+                            </h6>
+                        </div>
+
+                        <input name="menuID" type="hidden" value="{{ $menu->id }}">
+                        <input name="menuName" type="hidden" value="{{ $menu->name }}">
+                        @if (auth()->user()->role == 'customer')
+                            <button type="submit" class="primary-btn w-100 mt-3">Add to Cart</button>
+                        @elseif (auth()->user()->role == 'admin')
+                            <div class="dropdown w-100 mt-3">
+                                <a href="#" role="button" id="dropdownMenuLink" 
+                                    data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    <button class="primary-btn w-100">Edit</button>
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="{{ route('showMenuImages', $menu.id) }}">Edit Images</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('showMenuDetails', $menu.id) }}">Edit Details</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('deleteMenuItem', $menu.id) }}">Delete</a></li>
+                                    <li><a class="dropdown-item" href={{"./editMenuImages/".$menu['id']}}>Edit Images</a></li>
+                                    <li><a class="dropdown-item" href={{"./editMenuDetails/".$menu['id']}}>Edit Details</a></li>
+                                    <li><a class="dropdown-item" href={{"./delete/".$menu['id']}}>Delete</a></li>
                                 </ul>
                             </div>
-                            @endif
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">RM {{ $menu->price }}</h6>
-                        <p class="card-text">{{ $menu->description }}</p>
-                        
-                        <h6 class="card-text">
-                            @if($menu->allergic == 1)
-                            <i class="fa fa-exclamation-circle allergic-alert" aria-hidden="true" data-bs-toggle="tooltip" title="Allergic Warning"></i>
-                            @endif
-
-                            @if($menu->vegan == 1)
-                            <i class="fa fa-tree" aria-hidden="true" data-bs-toggle="tooltip" title="Vegan Friendly"></i>
-                            @elseif($menu->vegetarian == 1)
-                            <i class="fa fa-leaf" aria-hidden="true" data-bs-toggle="tooltip" title="Vegetarian Friendly"></i>
-                            @endif
-
-
-                        </h6>
-                        <input name="menuID" type="hidden" value="{{ $menu->id }}">
-                        <input name="menuName" type="hidden" value="{{ $menu->name }}">
-                        <h6>For {{ $menu->size }} people</h6>
-                        <button type="submit" class="primary-btn">Add to Cart</button>
+                        @endif
                     </form>
                 </div>
             </div>

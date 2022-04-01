@@ -46,11 +46,10 @@ class MenuController extends Controller
         
         $newImageName = time() . '-' . $request->menuName . '.' .
         $request->menuImage->extension();
-
         $request->menuImage->move(public_path('menuImages'), $newImageName);
 
         // Create new menu item and save into database
-        $newMenuItem = new Menu;
+        $newMenuItem = new Menu();
         $newMenuItem->type = $request->menuType;
         $newMenuItem->name = $request->menuName;
         $newMenuItem->description = $request->menuDescription;

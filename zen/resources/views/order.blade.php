@@ -63,8 +63,7 @@
                 @foreach ($activeOrder->cartItems as $orderItem)
                     <div class="order-cart-item d-flex justify-content-around">
                         <div class="food-img-wrapper">
-                            <!-- change image src -->
-                            <img src="{{ URL::asset('/images/chef1.jpg') }}" class="order-food">                      
+                            <img class="order-food shadow" src="{{ asset('menuImages/' . $orderItem->menu->image) }}">
                         </div>
                         <div class="food-desc-wrapper">
                             <div class="d-flex justify-content-between">
