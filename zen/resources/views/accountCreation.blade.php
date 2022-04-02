@@ -7,30 +7,29 @@
 @section('bodyID')
 {{ 'accountCreation' }}@endsection
 
+@section('navTheme')
+{{ 'light' }}@endsection
+
 @section('logoFileName')
 {{ URL::asset('/images/Black Logo.png') }}@endsection
 
 
 @section('content')
-<section class="content">
+<section class="container mt-5 mt-md-0 pt-5 pt-md-0">
     <br>
     @if (session('success'))
         {{ session('success') }}
     @endif
     <br>
-    <div class="row" id="top-bar">
+    <div class="row d-flex justify-content-center" id="top-bar">
         <div class="col-md-2" id="title">
             <label>Create Accounts</label>
-        </div>
-
-        <div class="col-md-1" id="report">
-            <div class="btn btn-dark">Modern</div>
         </div>
     </div>
     <br>
 
     <div class="row mt-5">
-        <div class="col-sm-12 col-md-8 offset-md-1">
+        <div class="col-10 col-md-8 offset-1 offset-md-2">
             <form method="POST" action="{{ route('accountStoring') }}" id="accountCreationForm">
                 @csrf
 
@@ -95,8 +94,8 @@
                 </div>
 
                 <div class="row mb-5">
-                    <div class="col-md-6 offset-md-5">
-                        <input form="accountCreationForm" type="submit" class="btn btn-primary px-4" value="{{ __('Create') }}"></input>
+                    <div class="col-md-8 offset-md-2">
+                        <button type="submit" class="primary-btn w-100 px-4">Create</button>
                     </div>
                 </div>
 
