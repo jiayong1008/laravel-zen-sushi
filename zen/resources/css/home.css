@@ -31,7 +31,7 @@
     background-color: #EFEFEF;
 }
 
-#home .logo-name, .nav-links li a {
+#home .logo-name, #register .logo-name, .nav-links li a {
     color: #EFEFEF;
 }
 
