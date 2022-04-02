@@ -81,9 +81,10 @@
             <br>
             <li ><a href="{{ route('accountCreation') }}" id="sidebar-account"><i class="fa fa-user" aria-hidden="true"></i>Account</a></li>
             <br>
-        @endif
+        @else
             <li ><a href="{{ route('kitchenOrder') }}" id="sidebar-orders"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Orders</a></li>
             <br>
+        @endif
             <li >
                 <a href="{{ route('logout') }}" id="sidebar-logout" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
