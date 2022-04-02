@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
+@section('links')
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+@endsection
+
 @section('bodyID')
 {{ 'register' }}@endsection
 
 @section('navTheme')
-{{ 'light' }}@endsection
+{{ 'dark' }}@endsection
 
 @section('logoFileName')
 {{ '../images/White Logo.png' }}@endsection
