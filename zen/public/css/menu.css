@@ -1,24 +1,8 @@
-*{
-    font-family: "poppins", sans-serif;
-}
-
-/* ====================
-        NAV 
-======================*/
-#menu .burger div {
-    background-color: rgb(82, 82, 82);
-}
-
-#menu .logo-name, .nav-links li a {
-    color: rgb(82, 82, 82);
-}
-
 /* ====================
         MAIN 
 ======================*/
-
 #menu .main {
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     background-color: #EFEFEF;
 }
@@ -27,7 +11,7 @@
     text-align: center;
     font-style: italic;
     color: black;
-    font-size: 50px;
+    font-size: 30px;
 }
 
 a.menu-title:link{
@@ -42,13 +26,12 @@ a.menu-title:link{
 }
 
 .menu-type-button{
-    font-size: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
+    font-size: 18px;
+    padding: 0 12px;
     border-radius: 0;
     margin-left: -10px;
-    background-color: whitesmoke;
-    border-color: whitesmoke;
+    background-color: rgb(231, 231, 231);
+    border-color: rgb(231, 231, 231);
 }
 
 input.price-class:invalid+span:after {
@@ -63,11 +46,6 @@ input.price-class:valid+span:after {
     padding-left: 5px;
 }
 
-.filter{
-    margin-top: .5%;
-    padding-bottom: 1%;
-}
-
 #filter-button{
     margin-right: 2%;
 }
@@ -78,6 +56,10 @@ input.price-class:valid+span:after {
 
 .menuImage{
     border-radius: 10px;
+    height: 200px;
+    max-width: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
 }
 
 .fa-exclamation-circle{

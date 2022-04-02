@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
-use App\Http\Controllers\POST;
 use File;
+
+
 class MenuController extends Controller
 {
     public function index() {
@@ -45,11 +46,10 @@ class MenuController extends Controller
         
         $newImageName = time() . '-' . $request->menuName . '.' .
         $request->menuImage->extension();
-
         $request->menuImage->move(public_path('menuImages'), $newImageName);
 
         // Create new menu item and save into database
-        $newMenuItem = new Menu;
+        $newMenuItem = new Menu();
         $newMenuItem->type = $request->menuType;
         $newMenuItem->name = $request->menuName;
         $newMenuItem->description = $request->menuDescription;
@@ -129,7 +129,7 @@ class MenuController extends Controller
         $menu->vegan = $request->menuVegan;
         $menu->save();
 
-        return redirect('/menu/filter?menuType=');
+        return redirect()->route('menu');
     }
 
     public function updateImages(Request $request)
@@ -161,7 +161,7 @@ class MenuController extends Controller
             $menu->image = $newImageName;
             $menu->save();
         }   
-        return redirect('/menu/filter?menuType=');
+        return redirect()->route('menu');
     }
 
     public function filter(Request $request)
@@ -225,6 +225,6 @@ class MenuController extends Controller
         }
 
         $menu->delete();
-        return redirect('/menu/filter?menuType=');
+        return redirect()->route('menu');
     }
 }

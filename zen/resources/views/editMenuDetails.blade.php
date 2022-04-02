@@ -84,7 +84,7 @@
         <div class="input-group mb-3">
             <label class="input-group-text" for="itemSizeInputGroup">Size:</label>
             <select name="menuSize" class="form-select" id="itemSizeInputGroup">
-                <option selected>{{ $menu->size }} People</option>
+                <option selected>{{ $menu->size }}</option>
                 @if($menu['size'] == "1-2")
                 @else
                     <option name="menuSize" value="1-2">1 - 2 People</option>
