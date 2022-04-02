@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fill: { opacity: 1 },
     series: [{
       name: 'Revenue',
-      data: dailyRevenue.map(record => record.revenue.toFixed(2)),
+      data: dailyRevenue.map(record => record.revenue),
     }],
     labels: dailyRevenue.map(record => record.date),
     yaxis: { min: 0 },
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, {
     name: 'Revenue',
     type: 'line',
-    data: dailyRevenue.map(record => record.revenue.toFixed(2)),
+    data: dailyRevenue.map(record => record.revenue),
   }],
     chart: {
     height: 350,
