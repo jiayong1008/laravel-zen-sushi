@@ -57,7 +57,9 @@ input.price-class:valid+span:after {
 .menuImage{
     border-radius: 10px;
     height: 200px;
-    width: auto;
+    max-width: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
 }
 
 .fa-exclamation-circle{

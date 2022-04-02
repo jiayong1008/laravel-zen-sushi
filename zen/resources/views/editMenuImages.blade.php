@@ -16,6 +16,7 @@
 {{ URL('http://127.0.0.1:8000/images/Black%20Logo.png') }}@endsection
 
 @section('content')
+<div class="flex-center min">
 <form method='post' action="{{ route('updateMenuImages') }}" enctype="multipart/form-data" class="px-4 py-3" style="min-width: 350px">
     @csrf
     <input name="menuID" type="hidden" value="{{ $menu['id'] }}">
@@ -34,4 +35,5 @@
         </div>
     </div>
 </form>
+</div>
 @endsection
