@@ -8,7 +8,6 @@
 @extends('layouts.backend')
 
 @section('links')
-    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
     <script src="{{ asset('js/dashboard.js') }}" type="text/javascript"></script>
 @endsection
 

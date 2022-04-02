@@ -66,7 +66,7 @@
                 <div class="order-cart-item d-flex justify-content-around">
                     <div class="food-img-wrapper">
                         <!-- change image src -->
-                        <img src="{{ URL::asset('/images/chef1.jpg') }}" class="order-food">                      
+                        <img src="{{ asset('menuImages/' . $orderItem->menu->image) }}" class="order-food">                      
                     </div>
                     <div class="food-desc-wrapper">
                         <div class="d-flex justify-content-between">
