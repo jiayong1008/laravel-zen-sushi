@@ -25,7 +25,7 @@
         @endif
 
         <div class="row menu-bar">
-        @if (auth()->user()->role == 'admin')
+        @if (Auth::check() && auth()->user()->role == 'admin')
             <div class="col-md-1 d-flex align-items-center">
                 <div class="dropstart">    
                     <button type="button" class="btn btn-success" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" id="filter-button">
@@ -251,7 +251,7 @@
         @forelse ($menus as $menu)
             
             <div class="card col-md-3 col-6 d-flex align-items-center">
-                <div class="card-body">
+                <div class="card-body w-100">
                     <form class="d-flex flex-column justify-content-between h-100" action="{{ route('addToCart') }}" method="post">
                         @csrf
                         <div class="flex-center">
@@ -282,9 +282,9 @@
 
                         <input name="menuID" type="hidden" value="{{ $menu->id }}">
                         <input name="menuName" type="hidden" value="{{ $menu->name }}">
-                        @if (auth()->user()->role == 'customer')
+                        @if (Auth::check() && auth()->user()->role == 'customer')
                             <button type="submit" class="primary-btn w-100 mt-3">Add to Cart</button>
-                        @elseif (auth()->user()->role == 'admin')
+                        @elseif (Auth::check() && auth()->user()->role == 'admin')
                             <div class="dropdown w-100 mt-3">
                                 <a href="#" role="button" id="dropdownMenuLink" 
                                     data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
