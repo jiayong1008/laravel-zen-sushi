@@ -12,6 +12,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CartItemFactory extends Factory
 {
+    private static $orderIndex = -1;
+    private static $customers = array();
+    private static $orders = array();
+    private static $menus = array();
     /**
      * Define the model's default state.
      *
@@ -22,8 +26,8 @@ class CartItemFactory extends Factory
     {
         return [
             'user_id' => $this->getUser(),
-            'menu_id' => $this->faker->numberBetween(1, Menu::count()),
-            'order_id' => $this->faker->numberBetween(1, Order::count()),
+            'menu_id' => $this->getMenu(),
+            'order_id' => $this->getOrder(),
             'quantity' => random_int(1, 3),
             'fulfilled' => true, // can change to false
         ];
@@ -31,15 +35,38 @@ class CartItemFactory extends Factory
 
     // Return random customer
     private function getUser() {
-        $users = User::all();
-        $customers = array();
-        foreach ($users as $user) {
-            if ($user->role == 'customer')
-                array_push($customers, $user->id);
+        if (sizeof(self::$customers) == 0) {
+            $users = User::all();
+            foreach ($users as $user) {
+                if ($user->role == 'customer')
+                    array_push(self::$customers, $user->id);
+            }
         }
-        if (count($customers) == 0) return;
+        $rand = array_rand(self::$customers);
+        return self::$customers[$rand];
+    }
 
-        $rand = array_rand($customers);
-        return $customers[$rand];
+    private function getOrder() {
+        if (sizeof(self::$orders) == 0) {
+            $orders = Order::all();
+            foreach ($orders as $order) {
+                array_push(self::$orders, $order->id);
+            }
+        }
+        self::$orderIndex++;
+        if (self::$orderIndex >= sizeof(self::$orders))
+            self::$orderIndex = 0;
+        return self::$orders[self::$orderIndex];
+    }
+
+    private function getMenu() {
+        if (sizeof(self::$menus) == 0) {
+            $menus = Menu::all();
+            foreach ($menus as $menu) {
+                array_push(self::$menus, $menu->id);
+            }
+        }
+        $rand = array_rand(self::$menus);
+        return self::$menus[$rand];
     }
 }
