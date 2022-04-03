@@ -49,18 +49,18 @@
         </div>
         <div class="col-lg-4 col-12 mb-lg-0 mb-3 flex-center">
             <!-- TODO -->
-            <div id="estimated-cost" class="col-11 pt-3 h-100 shadow rounded bg-white">
-                <h5>Estimated Cost</h5>
-                <h2 class="my-4">RM 3445.89</h2>
-                <p class="small text-muted">estimated cost of materials and ingredient</p>
+            <div id="estimated-cost" class="col-11 p-3 h-100 shadow rounded bg-white"> 
+                <h5 class="text-center">Estimated Cost</h5>
+                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">RM {{ $totalCost }}</h2>
+                <p class="small text-muted text-center">Total Cost of Materials</p>
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-lg-0 mb-3 flex-center">
             <!-- TODO -->
-            <div id="gross-profit" class="col-11 pt-3 h-100 shadow rounded bg-white">    
-                <h5>Gross Profit</h5>
-                <h2 class="my-4">RM 7380.70</h2>
-                <p class="small text-muted">difference of revenue and cost</p>
+            <div id="gross-profit" class="col-11 p-3 h-100 shadow rounded bg-white"> 
+                <h5 class="text-center">Gross Profit</h5>
+                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">RM {{ $grossProfit }}</h2>
+                <p class="small text-muted text-center">Difference of Revenue and Cost</p>
             </div>
         </div>
     </div>

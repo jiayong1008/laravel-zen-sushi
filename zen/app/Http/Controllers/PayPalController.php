@@ -94,16 +94,17 @@ class PayPalController extends Controller
         $response = $provider->capturePaymentOrder($request['token']);
 
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+
+            $order = Order::where('id',$orderId)->first();
             
             // Transaction succeed, empty the cart.
             $carts = auth()->user()->cartItems()->where('order_id', null)->get();
             foreach($carts as $cart) {
-                $cart->order_id = $orderId;
+                $cart->order()->associate($order);
                 $cart->save();
             }
 
             // Create Transaction object
-            $order = Order::where('id',$orderId)->first();
             $order->transaction()->create(['final_amount'=>$transactionAmount]);
             if ($discountID != -1) {
                 $discount = Discount::where("id", $discountID)->first();

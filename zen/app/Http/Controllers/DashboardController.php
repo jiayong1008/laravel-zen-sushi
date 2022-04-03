@@ -29,7 +29,7 @@ class DashboardController extends Controller
         // General variables useful for all charts / graphs
         $lastMonthDate = Carbon::now()->subDays(30)->toDateTimeString();
         $today = Carbon::today()->toDateString();
-        $oneMonthTransactions = Transaction::where('created_at', '>=', $lastMonthDate)->get();      
+        $oneMonthTransactions = Transaction::where('created_at', '>=', $lastMonthDate)->get();
         
         // ================   Calculate Revenue   ========================
         $totalRevenue = $oneMonthTransactions->sum("final_amount");
@@ -40,7 +40,16 @@ class DashboardController extends Controller
             ->groupBy('date')->orderBy('date')->get();
         // =============   End of Calculate Revenue   =====================
 
-        // TODO - calculate cost and profit to be done later!
+        // ================   Calculate Estimated Cost   =====================
+        $totalCost = 0;
+        foreach ($oneMonthTransactions as $transaction) {
+            $totalCost += $transaction->order->getTotalCost();
+        }
+        // ===============   End of Calculate Estimated Cost   ===============
+
+        // ================   Calculate Gross Profit   =====================
+        $grossProfit = $totalRevenue - $totalCost;
+        // ================   End of Calculate Gross Profit   =====================
 
         // ================   Total Orders   =====================
         $totalOrders = $oneMonthTransactions->count();
@@ -79,7 +88,7 @@ class DashboardController extends Controller
         $numCustomer = User::where("role", "customer")->count();
         
         $startDate = Carbon::parse($lastMonthDate)->format('Y-m-d');
-        return view('dashboard', compact("startDate", "today", "totalRevenue", "dailyRevenue",
+        return view('dashboard', compact("startDate", "today", "totalRevenue", "dailyRevenue", "totalCost", "grossProfit",
                 "totalOrders", "dailyOrders", "discountCodeUsed", "numCustomer")); 
     }
 }

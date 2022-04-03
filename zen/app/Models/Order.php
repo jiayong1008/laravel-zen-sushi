@@ -64,6 +64,14 @@ class Order extends Model
         return $this->currencyFormat($subtotal - $discount + $tax);
     }
 
+    public function getTotalCost() {
+        $totalCost = 0;
+        foreach ($this->cartItems as $item) {
+            $totalCost += floatval($item->menu->estCost) * floatval($item->quantity);
+        }
+        return $this->currencyFormat($totalCost);
+    }
+
     public function currencyFormat($number) {
         return number_format((float)$number, 2, '.', '');
     }
