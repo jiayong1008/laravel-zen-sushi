@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   Apex.dataLabels = { enabled: false }
   
+
   // Chart 1 - Revenue Area Chart
   var revenue = {
     chart: {
@@ -31,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
     fill: { opacity: 1 },
     series: [{
       name: 'Revenue',
-      data: dailyRevenue.map(record => record.revenue.toFixed(2)), // record.revenue.toFixed(2)
+      data: dailyRevenue.map(record => typeof(record.revenue) == 'string' ? parseInt(record.revenue).toFixed(2) : record.revenue.toFixed(2)), // record.revenue.toFixed(2)
     }],
     labels: dailyRevenue.map(record => record.date),
     yaxis: { min: 0 },
     xaxis: { type: 'datetime' },
     colors: ['#DCE6EC'],
     title: {
-      text: `RM${totalRevenue}`,
+      text: `RM ${totalRevenue}`,
       offsetX: 30,
       style: { fontSize: '24px', cssClass: 'apexcharts-yaxis-title' }
     },
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       style: { fontSize: '14px', cssClass: 'apexcharts-yaxis-title'  }
     }
   }
+
   
   // Chart 7 - Order-Revenue Mixed bar line chart
   var orderRevenue = {
@@ -58,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, {
     name: 'Revenue',
     type: 'line',
-    data: dailyRevenue.map(record => record.revenue.toFixed(2)), // record.revenue.toFixed(2)
+    data: dailyRevenue.map(record => typeof(record.revenue) == 'string' ? parseInt(record.revenue).toFixed(2) : record.revenue.toFixed(2)), // record.revenue.toFixed(2)
   }],
     chart: {
     height: 350,
