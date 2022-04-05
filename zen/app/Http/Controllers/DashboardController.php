@@ -59,6 +59,39 @@ class DashboardController extends Controller
             ->groupBy('date')->orderBy('date')->get();
         // =============   End of Total Orders   =====================
 
+        // ================   Product Category   =====================
+        $categoricalSales = [0, 0, 0, 0, 0, 0, 0];
+        foreach ($oneMonthTransactions as $transaction) {
+            $cartItems = $transaction->order->cartItems;
+
+            foreach ($cartItems as $item) {
+                $itemType = $item->menu->type;
+                $itemPrice = $item->menu->price;
+
+                switch($itemType) {
+                    case "Appetizer":
+                        $categoricalSales[0] += $itemPrice;
+                    case "Bento":
+                        $categoricalSales[1] += $itemPrice;
+                    case "Beverage":
+                        $categoricalSales[2] += $itemPrice;
+                    case "Dessert":
+                        $categoricalSales[3] += $itemPrice;
+                    case "Ramen":
+                        $categoricalSales[4] += $itemPrice;
+                    case "Sushi":
+                        $categoricalSales[5] += $itemPrice;
+                    case "Temaki":
+                        $categoricalSales[6] += $itemPrice;
+                }
+            }
+        }
+        for ($i=0; $i < count($categoricalSales) ; $i++) {
+            $categoricalSales[$i] = number_format((float)$categoricalSales[$i], 2, '.', '');
+        }
+        // =============   End of Product Category   =====================
+
+
         // Ensure the arrays are complete even when there is no order for that day
         $interval = DateInterval::createFromDateString('1 day');
         $period = new DatePeriod(new DateTime($lastMonthDate), $interval, new DateTime($today));  
@@ -80,6 +113,7 @@ class DashboardController extends Controller
         array_multisort($dates, $dailyOrders);
         $dailyRevenue = json_encode($dailyRevenue);
         $dailyOrders = json_encode($dailyOrders);
+        $categoricalSales = json_encode($categoricalSales);
 
         // calculate times of discount code being used
         $discountCodeUsed = Transaction::where("discount_id", "!=", null)->count();
@@ -89,6 +123,6 @@ class DashboardController extends Controller
         
         $startDate = Carbon::parse($lastMonthDate)->format('Y-m-d');
         return view('dashboard', compact("startDate", "today", "totalRevenue", "dailyRevenue", "totalCost", "grossProfit",
-                "totalOrders", "dailyOrders", "discountCodeUsed", "numCustomer")); 
+                "totalOrders", "dailyOrders", "discountCodeUsed", "numCustomer", "categoricalSales")); 
     }
 }

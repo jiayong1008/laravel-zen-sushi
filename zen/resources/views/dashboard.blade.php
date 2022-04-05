@@ -114,10 +114,8 @@
 
     <!-- Forth row - Menu Category Pie Chart -->
     <div class="row my-5 justify-content-between">
-        <div id="menu-pie-chart" class="col-12 pt-3 h-100 shadow rounded bg-white"
-            data-daily="" data-total="">
-            <!-- sales of each menu category -->
-            <h5>Pie chart</h5>
+        <div id="category-sales-chart" class="col-12 pt-3 h-100 shadow rounded bg-white"
+            data-sales="{{ $categoricalSales }}">
         </div>
     </div>
 </section>

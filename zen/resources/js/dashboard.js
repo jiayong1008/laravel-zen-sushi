@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const dailyRevenue = JSON.parse(document.querySelector('#generated-revenue').dataset.daily);
   const totalRevenue = parseFloat(document.querySelector('#generated-revenue').dataset.total);
   const dailyOrders = JSON.parse(document.querySelector('#order-revenue-chart').dataset.daily);
+  const categoricalSales = JSON.parse(document.querySelector('#category-sales-chart').dataset.sales);
   // const totalOrders = parseInt(document.querySelector('#order-revenue-chart').dataset.total);
   // dailyOrders.map(order => console.log(order.date, order.orders));
 
@@ -96,7 +97,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }]
   };
 
+
+var productCategorySales = {
+  chart: {
+    type: 'donut',
+    height: 350,
+  },
+  series: categoricalSales.map(sale => parseFloat(sale)),
+  labels: ['Appetizer', 'Bento', 'Beverage', 'Dessert', 'Ramen', 'Sushi', 'Temaki'],
+  title: {
+    text: 'Product Category Sales',
+    style: { fontSize: '18px', cssClass: 'apexcharts-yaxis-title' }
+  },
+  dataLabels: {
+    enabled: true,
+    formatter: function (val) {
+      return Math.round(val) + "%"
+    },
+  }
+}
+
+
   // Render charts
   new ApexCharts(document.querySelector("#generated-revenue"), revenue).render();
   new ApexCharts(document.querySelector("#order-revenue-chart"), orderRevenue).render();
+  new ApexCharts(document.querySelector("#category-sales-chart"), productCategorySales).render();
 })
