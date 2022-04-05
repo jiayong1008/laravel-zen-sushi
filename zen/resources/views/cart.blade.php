@@ -18,12 +18,13 @@
 <section class="cart" style="margin-top: 20vh;">
     <div class="container">
         <h2 class="d-flex justify-content-center">CART</h2>
+
         @if (session('success'))
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success fixed-bottom" role="alert" style="width:500px;left:30px;bottom:20px">
             {{ session('success') }}
         </div>
         @elseif (session('error'))
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-warning fixed-bottom" role="alert" style="width:500px;left:30px;bottom:20px">
             {{ session('error') }}
         </div>
         @endif
