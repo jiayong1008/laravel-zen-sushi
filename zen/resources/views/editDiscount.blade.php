@@ -91,23 +91,22 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea class="form-control @error('description') is-invalid @enderror" name="description" style="height: 100px" 
-                value="{{ old('description') ? old('description') : $discount->description }}"></textarea>
+            <textarea class="form-control @error('description') is-invalid @enderror" name="description"
+            style="height: 100px;">{{ old('description') ? old('description') : $discount->description }}
+            </textarea>
             @error('description')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
         </div>
-
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="primary-btn mx-5">Update</button>
-            <form action="{{ route('discountDestroy', $discount->id) }}">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="primary-btn mx-5">Delete</button>
-            </form>
-        </div>
+        <button type="submit" class="primary-btn w-100">Update</button>
+    </form>
+        
+        <form class="mt-3" action="{{ route('discountDestroy', $discount->id) }}" method="post">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="primary-btn w-100">Delete</button>
         </form>
     </div>
 </section>

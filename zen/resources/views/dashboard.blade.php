@@ -51,7 +51,7 @@
             <!-- TODO -->
             <div id="estimated-cost" class="col-11 p-3 h-100 shadow rounded bg-white"> 
                 <h5 class="text-center">Estimated Cost</h5>
-                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">RM {{ $totalCost }}</h2>
+                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">RM {{ number_format($totalCost, 2) }}</h2>
                 <p class="small text-muted text-center">Total Cost of Materials</p>
             </div>
         </div>
@@ -59,7 +59,7 @@
             <!-- TODO -->
             <div id="gross-profit" class="col-11 p-3 h-100 shadow rounded bg-white"> 
                 <h5 class="text-center">Gross Profit</h5>
-                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">RM {{ $grossProfit }}</h2>
+                <h2 class="my-4 apexcharts-yaxis-title fw-bold text-center">RM {{ number_format($grossProfit, 2) }}</h2>
                 <p class="small text-muted text-center">Difference of Revenue and Cost</p>
             </div>
         </div>

@@ -7,11 +7,11 @@
 
 // https://apexcharts.com/javascript-chart-demos/dashboards/modern/
 document.addEventListener('DOMContentLoaded', () => {
+  
+  // Extracting data
   const dailyRevenue = JSON.parse(document.querySelector('#generated-revenue').dataset.daily);
   const totalRevenue = parseFloat(document.querySelector('#generated-revenue').dataset.total);
   const dailyOrders = JSON.parse(document.querySelector('#order-revenue-chart').dataset.daily);
-  // const totalOrders = parseInt(document.querySelector('#order-revenue-chart').dataset.total);
-  // dailyOrders.map(order => console.log(order.date, order.orders));
 
   Apex.grid = {
     padding: { right: 0, left: 0 }
@@ -32,14 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
     fill: { opacity: 1 },
     series: [{
       name: 'Revenue',
-      data: dailyRevenue.map(record => typeof(record.revenue) == 'string' ? parseInt(record.revenue).toFixed(2) : record.revenue.toFixed(2)), // record.revenue.toFixed(2)
+      data: dailyRevenue.map(record => (
+        typeof(record.revenue) == 'string' ? parseInt(record.revenue).toFixed(2) : record.revenue.toFixed(2))
+        ),
     }],
     labels: dailyRevenue.map(record => record.date),
     yaxis: { min: 0 },
     xaxis: { type: 'datetime' },
     colors: ['#DCE6EC'],
     title: {
-      text: `RM ${totalRevenue}`,
+      text: `RM ${totalRevenue.toFixed(2)}`,
       offsetX: 30,
       style: { fontSize: '24px', cssClass: 'apexcharts-yaxis-title' }
     },
@@ -60,7 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }, {
     name: 'Revenue',
     type: 'line',
-    data: dailyRevenue.map(record => typeof(record.revenue) == 'string' ? parseInt(record.revenue).toFixed(2) : record.revenue.toFixed(2)), // record.revenue.toFixed(2)
+    data: dailyRevenue.map(record => (
+      typeof(record.revenue) == 'string' ? parseInt(record.revenue).toFixed(2) : record.revenue.toFixed(2))
+      ),
   }],
     chart: {
     height: 350,
