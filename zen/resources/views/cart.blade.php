@@ -38,7 +38,7 @@
                         @foreach ($cartItems as $item)
                             <div class="w-100 px-3 d-flex align-items-center py-3">
                                 <div class="col-2">
-                                    <img src="./images/chef1.jpg" alt="cart item image" class="img-fluid">
+                                    <img src="{{ asset('menuImages/' . $item->menu->image) }}" alt="cart item image" class="img-fluid">
                                 </div>
                                 <div class="col-6 px-4">
                                     <h5 class="text-dark">{{ $item->menu->name }}</h5>
