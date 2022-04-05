@@ -65,7 +65,6 @@
             @foreach ($firstOrder->cartItems as $orderItem)
                 <div class="order-cart-item d-flex justify-content-around">
                     <div class="food-img-wrapper">
-                        <!-- change image src -->
                         <img src="{{ asset('menuImages/' . $orderItem->menu->image) }}" class="order-food">                      
                     </div>
                     <div class="food-desc-wrapper">
@@ -88,15 +87,15 @@
                             </div>
                         </div>
                         <div class="mobile d-flex pt-2">
-                            <p class="price">{{ $orderItem->menu->price }}</p>
+                            <p class="price">{{ number_format($orderItem->menu->price, 2) }}</p>
                             <p class="quantity">x{{ $orderItem->quantity }}</p>
-                            <p class="cart-item-total">RM {{ $orderItem->menu->price * $orderItem->quantity }}</p>        
+                            <p class="cart-item-total">RM {{ number_format($orderItem->menu->price * $orderItem->quantity, 2) }}</p>        
                         </div>
-                        <p class="text-muted desktop">{{ $orderItem->menu->description }}</p>
+                        <p class="text-muted desktop w-75">{{ $orderItem->menu->description }}</p>
                     </div>
-                    <p class="price desktop">{{ $orderItem->menu->price }}</p>
+                    <p class="price desktop">RM {{ number_format($orderItem->menu->price, 2) }}</p>
                     <p class="quantity desktop">x{{ $orderItem->quantity }}</p>
-                    <p class="cart-item-total desktop">RM {{ $orderItem->menu->price * $orderItem->quantity }}</p>
+                    <p class="cart-item-total desktop">RM {{ number_format($orderItem->menu->price * $orderItem->quantity, 2) }}</p>
                 </div>
                 <hr>
             @endforeach

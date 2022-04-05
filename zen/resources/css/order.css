@@ -93,8 +93,9 @@
 
 .food-img-wrapper img {
     border-radius: 10%;
-    max-height: 100%;
-    width: auto;
+    height: 110px;
+    width: 110px;
+    object-fit: cover;
 }
 
 .food-desc-wrapper {
@@ -108,6 +109,11 @@
 @media screen and (max-width: 991px) {
     .food-img-wrapper {
         height: 12vh;
+    }
+
+    .food-img-wrapper img {
+        height: 100px;
+        width: 100px;
     }
 
     .food-desc-wrapper {
