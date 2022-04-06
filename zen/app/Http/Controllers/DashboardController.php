@@ -92,6 +92,31 @@ class DashboardController extends Controller
         }
         // =============   End of Product Category   =====================
 
+        // =============   Best Selling Product   =====================
+        $productSales = array();
+        foreach ($oneMonthTransactions as $transaction) {
+            $cartItems = $transaction->order->cartItems;
+
+            foreach ($cartItems as $item) {
+                $itemName = $item->menu->name;
+                $itemQty = $item->quantity;
+                if (isset($productSales[$itemName])) {
+                    $productSales[$itemName] = $productSales[$itemName] + $itemQty;
+                } else {
+                    $productSales[$itemName] = $itemQty;
+                }
+            }
+        }
+        arsort($productSales);
+        $finalProductSales = array();
+        foreach ($productSales as $product => $sale_count) {
+            $temp = array();
+            $temp['x'] = $product;
+            $temp['y'] = $sale_count;
+            array_push($finalProductSales, $temp);
+        }
+        // =============   End of Best Selling Product   =====================
+
 
         // Ensure the arrays are complete even when there is no order for that day
         $interval = DateInterval::createFromDateString('1 day');
@@ -115,6 +140,7 @@ class DashboardController extends Controller
         $dailyRevenue = json_encode($dailyRevenue);
         $dailyOrders = json_encode($dailyOrders);
         $categoricalSales = json_encode($categoricalSales);
+        $finalProductSales = json_encode($finalProductSales);
 
         // calculate times of discount code being used
         $discountCodeUsed = Transaction::where("discount_id", "!=", null)->count();
@@ -124,6 +150,6 @@ class DashboardController extends Controller
         
         $startDate = Carbon::parse($lastMonthDate)->format('Y-m-d');
         return view('dashboard', compact("startDate", "today", "totalRevenue", "dailyRevenue", "totalCost", "grossProfit",
-                "totalOrders", "dailyOrders", "discountCodeUsed", "numCustomer", "categoricalSales")); 
+                "totalOrders", "dailyOrders", "discountCodeUsed", "numCustomer", "categoricalSales", "finalProductSales")); 
     }
 }

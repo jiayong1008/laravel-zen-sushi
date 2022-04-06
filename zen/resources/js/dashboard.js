@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalRevenue = parseFloat(document.querySelector('#generated-revenue').dataset.total);
   const dailyOrders = JSON.parse(document.querySelector('#order-revenue-chart').dataset.daily);
   const categoricalSales = JSON.parse(document.querySelector('#category-sales-chart').dataset.sales);
+  const productSales = JSON.parse(document.querySelector('#best-selling-product-chart').dataset.sales);
   // const totalOrders = parseInt(document.querySelector('#order-revenue-chart').dataset.total);
   // dailyOrders.map(order => console.log(order.date, order.orders));
 
@@ -123,9 +124,32 @@ var productCategorySales = {
   }
 }
 
+var bestSellingProduct = {
+  chart: {
+    type: 'bar',
+    height: 350,
+  },
+  series: [{
+    name: 'Sale Count',
+    data: (productSales.length > 10 ? productSales.slice(0, 10) : productSales)
+  }],
+  title: {
+    text: 'Top 10 Best Selling Products',
+    style: { fontSize: '18px', cssClass: 'apexcharts-yaxis-title' }
+  },
+  yaxis: [{
+    title: {
+      text: 'Sale Count',
+      style: { fontSize: '14px', cssClass: 'apexcharts-yaxis-title' }
+    },
+  }]
+}
+
+
 
   // Render charts
   new ApexCharts(document.querySelector("#generated-revenue"), revenue).render();
   new ApexCharts(document.querySelector("#order-revenue-chart"), orderRevenue).render();
   new ApexCharts(document.querySelector("#category-sales-chart"), productCategorySales).render();
+  new ApexCharts(document.querySelector("#best-selling-product-chart"), bestSellingProduct).render();
 })
