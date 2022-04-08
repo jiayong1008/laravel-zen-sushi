@@ -1,5 +1,9 @@
 <?php
 
+// Programmer Name: Mr. Tan Wei Kang, Developer
+// Description: Handle admins' requests for account creation
+// Edited on: 3 April 2022
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;

@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Mr. Tan Wei Kang, Developer
+    Description: A page that allows the admins create accounts for various users.
+    Edited on: 8 April 2022
+ -->
+
 @extends('layouts.backend')
 
 @section('links')

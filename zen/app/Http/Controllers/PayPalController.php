@@ -1,5 +1,9 @@
 <?php
 
+// Programmer Name: Mr. Tan Wei Kang, Developer
+// Description: Handle user payments through PayPal integration
+// Edited on: 3 April 2022
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;

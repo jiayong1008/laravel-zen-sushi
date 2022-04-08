@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Mr. Tan Wei Kang, Developer
+    Description: A page that displays the customer's cart items and allow them to make checkouts.
+    Edited on: 8 April 2022
+ -->
+
 @extends('layouts.app')
 
 @section('links')
