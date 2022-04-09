@@ -1,7 +1,7 @@
 <!-- 
     Programmer Name: Mr. Tan Wei Kang, Developer
     Description: A page that allows the admins create accounts for various users.
-    Edited on: 8 April 2022
+    Edited on: 9 April 2022
  -->
 
 @extends('layouts.backend')
@@ -24,7 +24,9 @@
 <section class="container mt-5 mt-md-0 pt-5 pt-md-0">
     <br>
     @if (session('success'))
+    <div class="alert alert-success fixed-bottom" role="alert" style="width:500px;left:30px;bottom:20px">
         {{ session('success') }}
+    </div>
     @endif
     <br>
     <div class="row d-flex justify-content-center" id="top-bar">
