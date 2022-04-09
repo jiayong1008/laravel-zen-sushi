@@ -105,7 +105,7 @@ class CartController extends Controller
                     }
 
                     // Everything is okay. The discount code can be used.
-                    $discountAmount = $subtotal * $usableDiscountCode->percentage;
+                    $discountAmount = $subtotal * $usableDiscountCode->percentage/100;
                     if ($discountAmount > $usableDiscountCode->cap) {
                         $discountAmount = $usableDiscountCode->cap;
                     }
