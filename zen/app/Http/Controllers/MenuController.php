@@ -1,4 +1,7 @@
 <?php
+// Programmer 1: Mr. Lai Pin Cheng, Developer
+// Description: Manage menu (Customers can view and filter menu)
+// Edited on: 29 March 2022
 
 namespace App\Http\Controllers;
 
@@ -16,17 +19,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created menu in database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -41,7 +34,7 @@ class MenuController extends Controller
             'menuPrice' => 'required|regex:/^\d+(\.\d{1,2})?/',
             'menuEstCost' => 'required|regex:/^\d+(\.\d{1,2})?/',
             'menuSize' => 'required',
-            'menuImage' => 'required|mimes:jpg,png,jpeg|max:5048'
+            'menuImage' => 'required|mimes:jpg,png,jpeg|max:10240'
         ]);
         
         $newImageName = time() . '-' . $request->menuName . '.' .
@@ -65,34 +58,14 @@ class MenuController extends Controller
         return redirect('/menu/filter?menuType=');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
+    // Display the specific menu item details fields for edit
     public function showDetails($id)
     {
         $menu = Menu::find($id);
         return view('editMenuDetails', ['menu' => $menu]);
     }
 
+    // Display the specific menu image field for edit
     public function showImages($id)
     {
         $menu = Menu::find($id);
@@ -117,6 +90,7 @@ class MenuController extends Controller
             'menuSize' => 'required',
         ]);
         
+        // Update menu details
         $menu = Menu::find($request->menuID);
         $menu->type = $request->menuType;
         $menu->name = $request->menuName;
@@ -138,6 +112,7 @@ class MenuController extends Controller
         {
             $menu = Menu::find($request->menuID);
 
+            // Validate user input
             $request->validate([
                 'menuImage' => 'required|mimes:jpg,png,jpeg|max:10240'
             ]);
@@ -164,6 +139,7 @@ class MenuController extends Controller
         return redirect()->route('menu');
     }
 
+    // Query database according to filtering options
     public function filter(Request $request)
     {
         $menu = Menu::query();
@@ -209,7 +185,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified menu item from database.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

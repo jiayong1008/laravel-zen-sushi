@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Mr. Lai Pin Cheng, Developer
+    Description: Page where admin may view and update menu while customer can view menu and add menu to cart
+    Edited on: 15 March 2022
+ -->
+
 @extends(( auth()->user()->role == 'customer' ) ? 'layouts.app' : 'layouts.backend' )
 
 @section('links')
@@ -146,9 +152,9 @@
                 </div>
             </div>
         
-         @endif
+        @endif
 
-        
+        @if (Auth::check() && auth()->user()->role == 'admin')
             <div class="col-md-8 offset-md-1 col-12 text-center menu-type my-3">
                 <form method="get" action="{{ route('filterMenu') }}">
                     <button type="submit" name="menuType" value="" class="btn btn-light menu-type-button">All</button>
@@ -161,7 +167,20 @@
                     <button type="submit" name="menuType" value="Dessert" class="btn btn-light menu-type-button">Dessert</button>
                 </form>
             </div>
-
+        @elseif (Auth::check() && auth()->user()->role == 'customer')
+            <div class="col-md-8 offset-md-2 col-12 text-center menu-type my-3">
+                <form method="get" action="{{ route('filterMenu') }}">
+                    <button type="submit" name="menuType" value="" class="btn btn-light menu-type-button">All</button>
+                    <button type="submit" name="menuType" value="Appetizer" class="btn btn-light menu-type-button">Appetizer</button>
+                    <button type="submit" name="menuType" value="Sushi" class="btn btn-light menu-type-button">Sushi</button>
+                    <button type="submit" name="menuType" value="Temaki" class="btn btn-light menu-type-button">Temaki</button>
+                    <button type="submit" name="menuType" value="Bento" class="btn btn-light menu-type-button">Bento</button>
+                    <button type="submit" name="menuType" value="Ramen" class="btn btn-light menu-type-button">Ramen</button>
+                    <button type="submit" name="menuType" value="Beverage" class="btn btn-light menu-type-button">Beverage</button>
+                    <button type="submit" name="menuType" value="Dessert" class="btn btn-light menu-type-button">Dessert</button>
+                </form>
+            </div>
+        @endif
             <div class="col-md-2 d-flex align-items-center">
                 <div class="dropstart w-100 d-flex justify-content-end">    
                     <button type="button" class="btn btn-dark" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" id="filter-button">Filter <i class="fa fa-filter" aria-hidden="true"></i></button>
