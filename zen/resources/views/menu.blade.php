@@ -1,7 +1,7 @@
 <!-- 
     Programmer Name: Mr. Lai Pin Cheng, Developer
     Description: Page where admin may view and update menu while customer can view menu and add menu to cart
-    Edited on: 15 March 2022
+    Edited on: 10 April 2022
  -->
 
 @extends(( auth()->user()->role == 'customer' ) ? 'layouts.app' : 'layouts.backend' )
