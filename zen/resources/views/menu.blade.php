@@ -1,10 +1,10 @@
 <!-- 
     Programmer Name: Mr. Lai Pin Cheng, Developer
     Description: Page where admin may view and update menu while customer can view menu and add menu to cart
-    Edited on: 10 April 2022
+    Edited on: 14 April 2022
  -->
 
-@extends(( auth()->user()->role == 'customer' ) ? 'layouts.app' : 'layouts.backend' )
+@extends(( !Auth::check() || auth()->user()->role == 'customer' ) ? 'layouts.app' : 'layouts.backend' )
 
 @section('links')
 <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
@@ -151,9 +151,7 @@
                     </div>
                 </div>
             </div>
-        
         @endif
-
         @if (Auth::check() && auth()->user()->role == 'admin')
             <div class="col-md-8 offset-md-1 col-12 text-center menu-type my-3">
                 <form method="get" action="{{ route('filterMenu') }}">
@@ -167,7 +165,7 @@
                     <button type="submit" name="menuType" value="Dessert" class="btn btn-light menu-type-button">Dessert</button>
                 </form>
             </div>
-        @elseif (Auth::check() && auth()->user()->role == 'customer')
+        @else
             <div class="col-md-8 offset-md-2 col-12 text-center menu-type my-3">
                 <form method="get" action="{{ route('filterMenu') }}">
                     <button type="submit" name="menuType" value="" class="btn btn-light menu-type-button">All</button>
@@ -301,21 +299,23 @@
 
                         <input name="menuID" type="hidden" value="{{ $menu->id }}">
                         <input name="menuName" type="hidden" value="{{ $menu->name }}">
-                        @if (Auth::check() && auth()->user()->role == 'customer')
-                            <button type="submit" class="primary-btn w-100 mt-3">Add to Cart</button>
-                        @elseif (Auth::check() && auth()->user()->role == 'admin')
-                            <div class="dropdown w-100 mt-3">
-                                <a href="#" role="button" id="dropdownMenuLink" 
-                                    data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                    <button class="primary-btn w-100">Edit</button>
-                                </a>
+                        @if (Auth::check())
+                            @if (auth()->user()->role == 'customer')
+                                <button type="submit" class="primary-btn w-100 mt-3">Add to Cart</button>
+                            @elseif (auth()->user()->role == 'admin')
+                                <div class="dropdown w-100 mt-3">
+                                    <a href="#" role="button" id="dropdownMenuLink" 
+                                        data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        <button class="primary-btn w-100">Edit</button>
+                                    </a>
 
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href={{"./editMenuImages/".$menu['id']}}>Edit Images</a></li>
-                                    <li><a class="dropdown-item" href={{"./editMenuDetails/".$menu['id']}}>Edit Details</a></li>
-                                    <li><a class="dropdown-item" href={{"./delete/".$menu['id']}}>Delete</a></li>
-                                </ul>
-                            </div>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href={{"./editMenuImages/".$menu['id']}}>Edit Images</a></li>
+                                        <li><a class="dropdown-item" href={{"./editMenuDetails/".$menu['id']}}>Edit Details</a></li>
+                                        <li><a class="dropdown-item" href={{"./delete/".$menu['id']}}>Delete</a></li>
+                                    </ul>
+                                </div>
+                            @endif
                         @endif
                     </form>
                 </div>

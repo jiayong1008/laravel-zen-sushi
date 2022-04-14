@@ -1,3 +1,9 @@
+<!-- 
+// Programmer 1: Mr. Lai Pin Cheng, Developer
+// Description: Edit menu images (Admins can edit menu images)
+// Edited on: 14 April 2022
+-->
+
 @extends(( auth()->user()->role == 'customer' ) ? 'layouts.app' : 'layouts.backend' )
 
 @section('links')
@@ -31,7 +37,7 @@
     <div class="row">
         <div>
             <button type="submit" class="btn btn-outline-success">Save Changes</button>
-            <a href={{ '/menu/filter?menuType=' }}><button type="button" class="btn btn-outline-danger">Back</button></a>
+            <a href={{ url()->previous() }}><button type="button" class="btn btn-outline-danger">Back</button></a>
         </div>
     </div>
 </form>
