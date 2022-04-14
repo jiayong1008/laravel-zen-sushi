@@ -27,7 +27,9 @@
             <h2 class="d-flex justify-content-center menu-title">MENU</h2>
         </a>
         @if (session('success'))
+        <div class="alert alert-success fixed-bottom" role="alert" style="width:500px;left:30px;bottom:20px">
             {{ session('success') }}
+        </div>
         @endif
 
         <div class="row menu-bar">
