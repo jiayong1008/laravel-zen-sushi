@@ -5,23 +5,23 @@
 @endsection
 
 @section('bodyID')
-{{ 'resetPass' }}@endsection
+{{ 'register' }}@endsection
 
 @section('navTheme')
 {{ 'dark' }}@endsection
 
 @section('logoFileName')
-{{ '../images/Black Logo.png' }}@endsection
+{{ '../images/White Logo.png' }}@endsection
 
 
 @section('content')
 <section class="min-vh-100">
-    <div class="bg-image" style="background-image: url('./images/forgot-password.jpg'); height: 100vh;">
+    <div class="bg-image" style="background-image: url('../images/forgot-password.jpg'); height: 100vh;">
         <div class="container">
             <div class="row d-flex align-items-center justify-content-center min-vh-100">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-10">
                     <div class="card">
-                        <div class="card-header">{{ __('Reset Password') }}</div>
+                        <div class="card-header"><h3 class="text-center py-3">{{ __('Reset Password') }}</h3></div>
 
                         <div class="card-body">
                             <form method="POST" action="{{ route('password.update') }}">
