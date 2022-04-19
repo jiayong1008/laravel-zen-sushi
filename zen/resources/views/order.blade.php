@@ -30,7 +30,8 @@
         </div>
         <h3 class="mt-4 mb-2">No Orders Yet.</h3>
         <p class="text-muted">It seems like you haven't made your choice yet...</p>
-        <button class="primary-btn mt-3">Discover menu</button>
+        <!-- <a href="{{ route('menu') }}"><button class="primary-btn w-100 py-2">See Menu</button></a> -->
+        <a href="{{ route('menu') }}"><button class="primary-btn mt-3">Discover menu</button></a>
     </div>
 </section>
 @elseif ($activeOrder)
