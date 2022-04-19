@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Mr. Lai Pin Cheng, Developer
+    Description: Kitchen staff and admin's layout temnplate
+    Edited on: 29 March 2022 
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

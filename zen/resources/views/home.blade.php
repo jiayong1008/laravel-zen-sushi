@@ -26,7 +26,7 @@
         <div class="col-md-10 col-lg-8 details">
             <h3>FRESHEST SUSHI IN TOWN</h3>
             <h1>Experience a taste of sushi as if you are in Japan</h1>
-            <button class="primary-btn">Discover menu</button>
+            <a href="{{ route('menu') }}" class="btn primary-btn" style="width:250px;">Discover menu</a>
         </div>
     </div>
 </section>

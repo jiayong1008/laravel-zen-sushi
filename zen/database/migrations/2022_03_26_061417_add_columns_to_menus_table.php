@@ -1,4 +1,7 @@
 <?php
+// Programmer Name: Mr. Lai Pin Cheng, Developer
+// Description: Adding extra fields to Menu table
+// Edited on: 3 March 2022
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

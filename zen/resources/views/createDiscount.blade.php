@@ -1,3 +1,9 @@
+<!-- 
+    Programmer Name: Ms. Lim Jia Yong, Project Manager
+    Description: A page for creation of discount codes (a form)
+    Edited on: 10 April 2022
+ -->
+
 @extends('layouts.backend')
 
 @section('links')
@@ -13,7 +19,6 @@
 @section('logoFileName')
 {{ URL::asset('/images/Black Logo.png') }}@endsection
 
-<!-- GOT TIME DEN SLOWLY MAKE IT NAISER YA -->
 @section('content')
 <section class="min-vh-100 flex-center py-5">
     <div class="container">
